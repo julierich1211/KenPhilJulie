@@ -34,8 +34,21 @@ function beerMe(options) {
 
   this.init();
 
-  console.log(beerMe);
+  //console.log(beerMe);
 }
+
+beerMe.prototype.pullAllStyles = function() {
+  "use strict"
+  return $.getJSON(
+    this.complete_api_url + "styles/?key=" + this.api_key + "&callback=?")
+  .then(function(data) {
+    return data;
+    
+  });
+  console.log(data);
+}
+
+
 
 beerMe.prototype.init = function() {
   "use strict";
