@@ -2,6 +2,7 @@ window.onload = app;
 
 // runs when the DOM is loaded
 function app() {
+  "use strict"
 
         // load some scripts (uses promises :D)
         loader.load({
@@ -18,20 +19,25 @@ function app() {
             }
             // start app?
           var beer = new beerMe (options); 
-
-});
+          })
 }
 
 function beerMe(options) {
+  "use strict"
   if (!options.api_key) {
-    throw new Error ("Wrong");
+    throw new Error ("WRONG");
   }
   this.brewerydb_url = "http: //api.brewerydb.com/";
   this.version = "v2/";
-  this.branch = "styles?key="
   this.api_key = options.api_key;
   this.complete_api_url = this.brewerydb_url + this.version;
 
   this.init();
-  console.log (this.branch);
+
+  console.log(beerMe);
 }
+
+beerMe.prototype.init = function() {
+  "use strict";
+
+  };
