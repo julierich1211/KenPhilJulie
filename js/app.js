@@ -13,30 +13,10 @@ function app() {
         }).then(function() {
             _.templateSettings.interpolate = /{([\s\S]+?)}/g;
 
+            var options = {
+              api_key: "c6e086abdb374e9c5b9de44506e25ecb"
+            }
             // start app?
-        })
-var flickr = new Flickr({
-  api_key: "1234ABCD1234ABCD1234ABCD1234ABCD"
-});
-    } 
-//upload to flickr
-   //Flickr.authenticate(FlickrOptions, function(error, flickr) {
-  //var uploadOptions = {
-    //photos: [{
-      //title: "test",
-      //tags: ["happy","fox"],
-     // photo: __dirname + "/test.jpg"
-   // },{
-     // title: "test2",
-      //tags: ["secondary", "test", "image"],
-      //photo: __dirname + "/test.jpg"
-   // }]
- // };
-
-  //Flickr.upload(uploadOptions, FlickrOptions, function(err, result) {
-    //if(err) {
-      //return console.error(error);
-    //}
-    //console.log("photos uploaded", result);
- // });
-//});
+          var beer = new Beerme (options); 
+          })
+}
