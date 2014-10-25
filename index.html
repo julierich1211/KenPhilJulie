@@ -18,23 +18,26 @@
     <div class="container demo-1">
         <!-- Top Navigation -->
         <div class="codrops-top clearfix">
-            <span>Previous Demo</span>
+            <span>
+                <h1>XML to JSON</h1>
+                <pre id="pre"></pre>
+            </span>
             <span class="right"></span>
         </div>
         <header>
-            <h1>Natural Language Form
-                <span>with custom input elements</span>
+            <h1>My Beer Client
+                <span>with non-customary input elements</span>
             </h1>
         </header>
         <div class="main clearfix">
             <form id="nl-form" class="nl-form">
                 I feel like drinking
                 <select>
-                    <option value="1" selected>Beer</option>
-                    <option value="2">Indian</option>
-                    <option value="3">French</option>
-                    <option value="4">Japanese</option>
-                    <option value="2">Italian</option>
+                    <option value="1" selected>British Origin Ales</option>
+                    <option value="2">Irish Origin Ales</option>
+                    <option value="3">North American Origin Ales</option>
+                    <option value="4">German Origin Ales</option>
+                    <option value="2">Belgian And French Origin Ales</option>
                 </select>
                 <br />in a
                 <select>
@@ -53,7 +56,7 @@
                     <option value="3">at 9 p.m.</option>
                 </select>
                 in
-                <input type="text" value="" placeholder="any city" data-subline="For example: <em>Houston</em> or <em>New York</em>" />
+                <input type="text" value="" placeholder="any city" data-subline="For example: <em>Houston</em>" />
                 <div class="nl-submit-wrap">
                     <button class="nl-submit" type="submit">Find a restaurant</button>
                 </div>
@@ -68,6 +71,7 @@
     var nlform = new NLForm(document.getElementById('nl-form'));
     </script>
     <script type="text/javascript" src="./bower_components/Loader/loader.js" id="loaderjs" data-app="./js/app.js"></script>
+    <script type="text/javascript" src="./js/xml2json.js"></script>
 </body>
 
 </html>
