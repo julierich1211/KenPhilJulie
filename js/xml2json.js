@@ -1874,7 +1874,7 @@ function xmlToJson(xml) {
       for (var j = 0; j < xml.attributes.length; j++) {
         var attribute = xml.attributes.item(j);
         //obj["attributes"][attribute.nodeName] = attribute.nodeValue;
-        obj['@' + attribute.nodeName] = attribute.nodeValue;
+        obj['@' + attribute.nodeName] = attribute.value;
       }
     }
   } else if (xml.nodeType == 3) { // text
@@ -1912,6 +1912,6 @@ function xmlToJson(xml) {
 }
 
 var obj = xmlToJson(xml);
-console.clear();
-console.debug(obj);
+//console.clear();
+//console.debug(obj);
 document.getElementById('pre').innerHTML = JSON.stringify(obj,null,'  ');
