@@ -13,7 +13,7 @@ function app() {
         url: "./bower_components/pathjs/path.min.js"
     }).then(function() {
         _.templateSettings.interpolate = /{([\s\S]+?)}/g;
-      
+
 
         var options = {
                 api_key: "c6e086abdb374e9c5b9de44506e25ecb"
@@ -52,14 +52,66 @@ beerMe.prototype.pullSingleCategoryID = function(id) {
     return $.getJSON(this.complete_api_url + "styles/" + id + ".js?api_key=" + this.api_key + "&callback=?").then(function(data) {
         return data;
     });
-    console.log(data);
-}
 
+}
+beerMe.prototype.loadTemplate = function(name) {
+    if (!this.templates) {
+        this.templates = {};
+    }
+    var self = this;
+    if (this.templates[name]) {
+        var promise = $.Deferred();
+        promise.resolve(this.templates[name]);
+        return promise;
+    } else {
+        return$.get('./templates/' + name + '.html').then(function(data) {
+            self.templates[name] = data;
+            return data;
+
+
+        });
+    }
+}
+beerMe.prototype.drawStyle = function(templateString, data) {
+    var grid = document.querySelector("#styles");
+    var bigHTMLString = data.results.map(function(style) {
+        return_.template(templateString, style);
+    }).join('');
+    grid.innerHTML = bigHTMLString;
+}
+beerMe.prototype.drawSingleCategoryID = function(template, data) {
+    var style = data.results[0];
+    var grid = document.querySelector("#styles");
+    var bigHTMLString = _.template(template, style);
+
+    grid.innerHTML = bigHTMLString;
+}
 
 beerMe.prototype.init = function() {
     "use strict";
     var self = this;
 
+    Path.map("#/").to(function() {
+        $.when(
+            self.loadTemplate("style"),
+            self.pullAllStyles()
+        ).then(function() {
+            self.drawStyle(arguments[0], arguments[1]);
+            console.dir(self)
+        })
+    });
+    Path.map("#/message/:anymessage").to(function() {
+        alert(this.params.anymessage);
 
-
-};
+    })
+    Path.map("#/style/:id").to(function() {
+        $.when(
+            self.loadTemplate("drawSingleCategoryID"),
+            self.pullSingleCategoryID(this.params.id)
+        ).then(function() {
+            self.drawSingleCategoryID(arguments[0], arguments[1]);
+        })
+    });
+    Path.root("#/");
+    Path.listen();
+}
