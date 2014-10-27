@@ -23,10 +23,10 @@ pullDetail.prototype.loadTemplate = function(templateName) {
 pullDetail.prototype.placeDetail = function(beerHTML, beer) {
     var d = new Date(beerName.created_at);
     beerName.joined = ["Joined On", d.toDateString()].join("");
-    document.querySelector('.left-column').innerHTML = _.template(beerHTML, beer);
+    document.querySelector('').innerHTML = _.template(beerHTML, beer);
 };
 pullDetail.prototype.placeBeerData = function(openBeerHTML, openBeer) {
-    document.querySelector('.right-column').innerHTML = openBeer.map(function(openBeer){
+    document.querySelector('#formOne').innerHTML = openBeer.map(function(openBeer){
         return _.template(openBeerHTML, openBeer);
     }).join('');
 };
@@ -36,11 +36,11 @@ pullDetail.prototype.detail = function() {
     $.when(
         this.getInfo(),
         this.getInfoBeer(),
-        this.loadTemplate('beer'),
-        this.loadTemplate('openBeer')
-    ).then(function(beer, openBeer, beerHTML, openBeerHTML) {
-        own.placeDetail(beerHTML, beer);
-        own.placeRepoData(openBeerHTML, openBeer);
+        this.loadTemplate('formBegin')
+        //this.loadTemplate('openBeer')
+    ).then(function(formBegin, formBeginHTML) {
+        own.placeDetail(formBeginHTML, formBegin);
+        //own.placeRepoData(openBeerHTML, openBeer);
     });
 }
 window.onload = app;

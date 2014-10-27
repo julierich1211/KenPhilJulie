@@ -64,7 +64,7 @@ beerMe.prototype.loadTemplate = function(name) {
         promise.resolve(this.templates[name]);
         return promise;
     } else {
-        return$.get('./templates/' + name + '.html').then(function(data) {
+        return $.get('./templates/' + name + '.html').then(function(data) {
             self.templates[name] = data;
             return data;
 
@@ -73,7 +73,7 @@ beerMe.prototype.loadTemplate = function(name) {
     }
 }
 beerMe.prototype.drawStyle = function(templateString, data) {
-    var grid = document.querySelector("#styles");
+    var grid = document.querySelector("#formOne");
     var bigHTMLString = data.results.map(function(style) {
         return_.template(templateString, style);
     }).join('');
@@ -81,7 +81,7 @@ beerMe.prototype.drawStyle = function(templateString, data) {
 }
 beerMe.prototype.drawSingleCategoryID = function(template, data) {
     var style = data.results[0];
-    var grid = document.querySelector("#styles");
+    var grid = document.querySelector("#formOne");
     var bigHTMLString = _.template(template, style);
 
     grid.innerHTML = bigHTMLString;
