@@ -10,7 +10,7 @@ pullDetail.prototype.getInfo = function() {
     });
 };
 pullDetail.prototype.getInfoBeer = function() {
-    return $.get('https://api.openbeerdatabase.com/v1/beers.json' + this.username + '/openBeer').then(function(data) {
+    return $.get('https://api.openbeerdatabase.com/v1/beers.json' + this.beerName + '/openBeer').then(function(data) {
         return data;
     });
     console.log(data);
@@ -21,8 +21,8 @@ pullDetail.prototype.loadTemplate = function(templateName) {
     });
 };
 pullDetail.prototype.placeDetail = function(beerHTML, beer) {
-    var d = new Date(profile.created_at);
-    profile.joined = ["Joined On", d.toDateString()].join("");
+    var d = new Date(beerName.created_at);
+    beerName.joined = ["Joined On", d.toDateString()].join("");
     document.querySelector('.left-column').innerHTML = _.template(beerHTML, beer);
 };
 pullDetail.prototype.placeBeerData = function(openBeerHTML, openBeer) {
