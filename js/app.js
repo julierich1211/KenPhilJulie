@@ -39,15 +39,16 @@ function BeerMe(options) {
 BeerMe.prototype.pullAllStyles = function() {
     // "use strict";
     return $.getJSON(
-            this.complete_api_url + "search?key=" + this.api_key + "&callback=?")
+            this.complete_api_url + "search?key=" + this.api_key + "&type=?" + "&q=?")
         .then(function(data) {
             return data;
 
         });
     console.log(data);
 };
+
 BeerMe.prototype.pullSingleCategoryID = function(id) {
-    return $.getJSON(this.complete_api_url + "search?key=" + id + this.api_key + "&callback=?").then(function(data) {
+    return $.getJSON(this.complete_api_url + "search?key=" + this.api_key + "&type=?" + "&q=?").then(function(data) {
         return data;
     });
     console.log(data);
@@ -120,5 +121,5 @@ BeerMe.prototype.init = function() {
 
         Path.listen();
     });
-    console.dir(init);
+
 };
