@@ -26,15 +26,7 @@ function app() {
 function BeerClient(options) {
     if (!options.api_key) {
         throw new Error("Yo dawg, I heard you like APIs. Y U NO APIKEY!?!?");
-<<<<<<< HEAD
-    } else { return
-    this.bdb_url = "http://api.brewerydb.com/v2";
-    this.api_key = options.api_key;
-    this.complete_api_url = this.bdb_url;
 
-    // derp.
-    this.init();}
-=======
     } else {
 
 
@@ -46,19 +38,14 @@ function BeerClient(options) {
         // derp.
         this.init();
     }
->>>>>>> 010dc50d0e57580858e12a6e99be25e6659fb03d
+
 }
 
 BeerClient.prototype.pullAllActiveListings = function() {
     return $.getJSON(
 
-<<<<<<< HEAD
-       this.complete_api_url + "search/style" + "?key=" + this.api_key + "&q=ipa";
-    )
-=======
             this.complete_api_url + "search/style" + "?key=" + this.api_key + "&q=ipa"
         )
->>>>>>> 010dc50d0e57580858e12a6e99be25e6659fb03d
         .then(function(data) {
             console.log(data);
             return data;
@@ -108,7 +95,7 @@ BeerClient.prototype.drawSingleListing = function(template, data) {
     grid.innerHTML = bigHtmlString;
 };
 
-<<<<<<< HEAD
+/*
 BeerClient.prototype.setupRouting = function(){
     var self = this;
 
@@ -126,19 +113,7 @@ BeerClient.prototype.setupRouting = function(){
 
     // set the default hash
     Path.root("#/");
-=======
-BeerClient.prototype.init = function() {
-    var self = this;
-    // start doing shit...
-    $.when(
-        this.pullAllActiveListings(),
-        this.pullSingleListing(),
-        this.loadTemplate('formBegin')
-    ).then(function(formBegin, formBeginHtml) {
-        self.pullAllActiveListings(formBeginHtml, formBegin);
-    });
->>>>>>> 010dc50d0e57580858e12a6e99be25e6659fb03d
-};
+*/
 
 BeerClient.prototype.init = function() {
     var self = this;
