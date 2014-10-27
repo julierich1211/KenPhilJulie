@@ -1,7 +1,8 @@
 window.onload = app;
+
 // runs when the DOM is loaded
+
 function app() {
-    // "use strict";
 
     // load some scripts (uses promises :D)
     loader.load({
@@ -13,113 +14,93 @@ function app() {
     }).then(function() {
         _.templateSettings.interpolate = /{([\s\S]+?)}/g;
 
-
         var options = {
             api_key: "c6e086abdb374e9c5b9de44506e25ecb"
         };
         // start app?
-        var beer = new BeerMe(options);
+        var client = new BeerClient(options);
     });
+
 }
 
-function BeerMe(options) {
-    //"use strict";
+function BeerClient(options) {
     if (!options.api_key) {
-        throw new Error("Yo dawg, I heard you like APIs. Y U NO APIKEY?!?!?!");
-        //http://api.brewerydb.com/v2/search?key=[MyKey]&type=brewery&q={the brewery you are searching for}
-        this.brewerydb_url = "api.brewerydb.com/";
-        this.version = "v2/";
-        this.api_key = options.api_key;
-        this.complete_api_url = this.brewerydb_url + this.version;
+        throw new Error("Yo dawg, I heard you like APIs. Y U NO APIKEY!?!?");
+    } else {
 
+
+        this.bdb_url = "http://api.brewerydb.com/";
+        this.version = options.api_version || "v2/"; // handle api version... if not given, just use the default "v2"
+        this.api_key = options.api_key;
+        this.complete_api_url = this.bdb_url + this.version;
+
+        // derp.
         this.init();
     }
-
 }
-BeerMe.prototype.pullAllStyles = function() {
-    // "use strict";
-    return $.getJSON(
-            this.complete_api_url + "search?key=" + this.api_key + "&type=?" + "&q=?")
-        .then(function(data) {
-            return data;
 
+BeerClient.prototype.pullAllActiveListings = function() {
+    return $.getJSON(
+
+            this.complete_api_url + "search/style" + "?key=" + this.api_key + "&q=ipa"
+        )
+        .then(function(data) {
+            console.log(data);
+            return data;
         });
-    console.log(data);
 };
 
-BeerMe.prototype.pullSingleCategoryID = function(id) {
-    return $.getJSON(this.complete_api_url + "search?key=" + this.api_key + "&type=?" + "&q=?").then(function(data) {
+BeerClient.prototype.pullSingleListing = function(id) {
+    return $.getJSON(this.complete_api_url + "search/style" + "?key=" + this.api_key + "&q=ipa").then(function(data) {
         return data;
     });
-    console.log(data);
 };
-BeerMe.prototype.loadTemplate = function(name) {
+
+BeerClient.prototype.loadTemplate = function(name) {
     if (!this.templates) {
         this.templates = {};
     }
+
     var self = this;
+
     if (this.templates[name]) {
         var promise = $.Deferred();
         promise.resolve(this.templates[name]);
         return promise;
     } else {
         return $.get('./templates/' + name + '.html').then(function(data) {
-            self.templates[name] = data;
+            self.templates[name] = data; // <-- cache it for any subsequent requests to this template
             return data;
-
-
         });
     }
 };
-BeerMe.prototype.drawStyle = function(templateString, data) {
+
+BeerClient.prototype.drawListings = function(templateString, data) {
     var grid = document.querySelector("#formOne");
-    var bigHTMLString = data.results.map(function(style) {
-        return_.template(templateString, style);
+
+    var bigHtmlString = data.results.map(function(formBegin) {
+        return _.template(templateString, formBegin);
     }).join('');
-    grid.innerHTML = bigHTMLString;
+
+    grid.innerHTML = bigHtmlString;
 };
-BeerMe.prototype.drawSingleCategoryID = function(id) {
-    var categoryID = this.latestData.results.filter(function(categoryID) {
-        return categoryID.categoryID === parseInt(id);
-    });
+
+BeerClient.prototype.drawSingleListing = function(template, data) {
+    var listing = data.results[0];
     var grid = document.querySelector("#formOne");
-    var bigHTMLString = _.template(this.formBeginHtml, categoryID[0]);
-    grid.innerHTML = bigHTMLString;
+    var bigHtmlString = _.template(template, formBegin);
+
+    grid.innerHTML = bigHtmlString;
 };
 
-BeerMe.prototype.setupRouting = function() {
+BeerClient.prototype.init = function() {
     var self = this;
-
-    Path.map("#/").to(function() {
-        self.drawStyle(self.formBiginHtml, self.latestData);
-    });
-
-    Path.map("#/message/:anymessage").to(function() {
-        alert(this.params.anymessage);
-    });
-
-    Path.map("#/categoryID/:id").to(function() {
-        self.drawSingleCategoryID(this.params.id);
-    });
-
-    // set the default hash
-    Path.root("#/");
-};
-
-BeerMe.prototype.init = function() {
-    "use strict";
-    var self = this;
-    this.setupRouting();
-
+    // start doing shit...
     $.when(
-        this.pullAllStyles(),
-        this.loadTemplate("formBegin"),
-        self.loadTemplate()
-    ).then(function(data, html, formBeginHtml) {
-        self.latestData = data;
-        self.formBeginHtml = html;
-
-        Path.listen();
+        this.pullAllActiveListings(),
+        this.pullSingleListing(),
+        this.loadTemplate('formBegin')
+    ).then(function(formBegin, formBeginHtml) {
+        self.pullAllActiveListings(formBeginHtml, formBegin);
     });
-
 };

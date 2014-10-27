@@ -1,300 +1,86 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'node',
-1 verbose cli   '/usr/local/bin/npm',
-1 verbose cli   'install',
-1 verbose cli   'express',
-1 verbose cli   '--save-dev' ]
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'brewery-db' ]
 2 info using npm@1.4.28
 3 info using node@v0.10.32
-4 verbose cache add [ 'express', null ]
-5 verbose cache add name=undefined spec="express" args=["express",null]
-6 verbose parsed url { protocol: null,
-6 verbose parsed url   slashes: null,
-6 verbose parsed url   auth: null,
-6 verbose parsed url   host: null,
-6 verbose parsed url   port: null,
-6 verbose parsed url   hostname: null,
-6 verbose parsed url   hash: null,
-6 verbose parsed url   search: null,
-6 verbose parsed url   query: null,
-6 verbose parsed url   pathname: 'express',
-6 verbose parsed url   path: 'express',
-6 verbose parsed url   href: 'express' }
-7 silly lockFile f3c62de4-express express
-8 verbose lock express /Users/tekmcleod/.npm/f3c62de4-express.lock
-9 silly lockFile f3c62de4-express express
-10 silly lockFile f3c62de4-express express
-11 verbose addNamed [ 'express', '' ]
-12 verbose addNamed [ null, '*' ]
-13 silly lockFile 64a534c1-express express@
-14 verbose lock express@ /Users/tekmcleod/.npm/64a534c1-express.lock
-15 silly addNameRange { name: 'express', range: '*', hasData: false }
-16 verbose request where is /express
-17 verbose request registry https://registry.npmjs.org/
-18 verbose request id dd3c7d3eaff0b1ba
-19 verbose url raw /express
-20 verbose url resolving [ 'https://registry.npmjs.org/', './express' ]
-21 verbose url resolved https://registry.npmjs.org/express
-22 verbose request where is https://registry.npmjs.org/express
-23 info trying registry request attempt 1 at 08:31:21
-24 verbose etag "35JSQ42AVLPKA3UBRSX3ZYDAJ"
-25 http GET https://registry.npmjs.org/express
-26 http 200 https://registry.npmjs.org/express
-27 silly registry.get cb [ 200,
-27 silly registry.get   { date: 'Sat, 25 Oct 2014 13:31:22 GMT',
-27 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-27 silly registry.get     etag: '"6GESXL63U36TPWFIRZ6VV5VKK"',
-27 silly registry.get     'content-type': 'application/json',
-27 silly registry.get     'cache-control': 'max-age=60',
-27 silly registry.get     'content-length': '406132',
-27 silly registry.get     'accept-ranges': 'bytes',
-27 silly registry.get     via: '1.1 varnish',
-27 silly registry.get     age: '12',
-27 silly registry.get     'x-served-by': 'cache-ord1732-ORD',
-27 silly registry.get     'x-cache': 'HIT',
-27 silly registry.get     'x-cache-hits': '1',
-27 silly registry.get     'x-timer': 'S1414243882.653098,VS0,VE1',
-27 silly registry.get     vary: 'Accept',
-27 silly registry.get     'keep-alive': 'timeout=10, max=50',
-27 silly registry.get     connection: 'Keep-Alive' } ]
-28 silly addNameRange number 2 { name: 'express', range: '*', hasData: true }
-29 silly addNameRange versions [ 'express',
-29 silly addNameRange   [ '0.14.0',
-29 silly addNameRange     '0.14.1',
-29 silly addNameRange     '1.0.0',
-29 silly addNameRange     '1.0.1',
-29 silly addNameRange     '1.0.2',
-29 silly addNameRange     '1.0.3',
-29 silly addNameRange     '1.0.4',
-29 silly addNameRange     '1.0.5',
-29 silly addNameRange     '1.0.6',
-29 silly addNameRange     '1.0.7',
-29 silly addNameRange     '1.0.8',
-29 silly addNameRange     '2.0.0',
-29 silly addNameRange     '2.1.0',
-29 silly addNameRange     '2.1.1',
-29 silly addNameRange     '2.2.0',
-29 silly addNameRange     '2.2.1',
-29 silly addNameRange     '2.2.2',
-29 silly addNameRange     '2.3.0',
-29 silly addNameRange     '2.3.1',
-29 silly addNameRange     '2.3.2',
-29 silly addNameRange     '2.3.3',
-29 silly addNameRange     '2.3.4',
-29 silly addNameRange     '2.3.5',
-29 silly addNameRange     '2.3.6',
-29 silly addNameRange     '2.3.7',
-29 silly addNameRange     '2.3.8',
-29 silly addNameRange     '2.3.9',
-29 silly addNameRange     '2.3.10',
-29 silly addNameRange     '2.3.11',
-29 silly addNameRange     '2.3.12',
-29 silly addNameRange     '2.4.0',
-29 silly addNameRange     '2.4.1',
-29 silly addNameRange     '2.4.2',
-29 silly addNameRange     '2.4.3',
-29 silly addNameRange     '2.4.4',
-29 silly addNameRange     '2.4.5',
-29 silly addNameRange     '2.4.6',
-29 silly addNameRange     '2.4.7',
-29 silly addNameRange     '2.5.0',
-29 silly addNameRange     '2.5.1',
-29 silly addNameRange     '2.5.2',
-29 silly addNameRange     '2.5.3',
-29 silly addNameRange     '2.5.4',
-29 silly addNameRange     '2.5.5',
-29 silly addNameRange     '2.5.6',
-29 silly addNameRange     '2.5.7',
-29 silly addNameRange     '2.5.8',
-29 silly addNameRange     '2.5.9',
-29 silly addNameRange     '2.5.10',
-29 silly addNameRange     '2.5.11',
-29 silly addNameRange     '3.0.0',
-29 silly addNameRange     '3.0.1',
-29 silly addNameRange     '3.0.2',
-29 silly addNameRange     '3.0.3',
-29 silly addNameRange     '3.0.4',
-29 silly addNameRange     '3.0.5',
-29 silly addNameRange     '3.0.6',
-29 silly addNameRange     '3.1.0',
-29 silly addNameRange     '3.1.1',
-29 silly addNameRange     '3.1.2',
-29 silly addNameRange     '3.2.0',
-29 silly addNameRange     '3.2.1',
-29 silly addNameRange     '3.2.2',
-29 silly addNameRange     '3.2.3',
-29 silly addNameRange     '3.2.4',
-29 silly addNameRange     '3.2.5',
-29 silly addNameRange     '3.2.6',
-29 silly addNameRange     '3.3.0',
-29 silly addNameRange     '3.3.1',
-29 silly addNameRange     '3.3.2',
-29 silly addNameRange     '3.3.3',
-29 silly addNameRange     '3.3.4',
-29 silly addNameRange     '3.3.5',
-29 silly addNameRange     '3.3.6',
-29 silly addNameRange     '1.0.0-beta',
-29 silly addNameRange     '1.0.0-beta2',
-29 silly addNameRange     '1.0.0-rc',
-29 silly addNameRange     '1.0.0-rc2',
-29 silly addNameRange     '1.0.0-rc3',
-29 silly addNameRange     '1.0.0-rc4',
-29 silly addNameRange     '2.0.0-beta',
-29 silly addNameRange     '2.0.0-beta2',
-29 silly addNameRange     '2.0.0-beta3',
-29 silly addNameRange     '2.0.0-rc',
-29 silly addNameRange     '2.0.0-rc2',
-29 silly addNameRange     '2.0.0-rc3',
-29 silly addNameRange     '3.0.0-alpha1',
-29 silly addNameRange     '3.0.0-alpha2',
-29 silly addNameRange     '3.0.0-alpha3',
-29 silly addNameRange     '3.0.0-alpha4',
-29 silly addNameRange     '3.0.0-alpha5',
-29 silly addNameRange     '3.0.0-beta1',
-29 silly addNameRange     '3.0.0-beta2',
-29 silly addNameRange     '3.0.0-beta3',
-29 silly addNameRange     '3.0.0-beta4',
-29 silly addNameRange     '3.0.0-beta6',
-29 silly addNameRange     '3.0.0-beta7',
-29 silly addNameRange     '3.0.0-rc1',
-29 silly addNameRange     '3.0.0-rc2',
-29 silly addNameRange     '3.0.0-rc3',
-29 silly addNameRange     '3.0.0-rc4',
-29 silly addNameRange     '3.0.0-rc5',
-29 silly addNameRange     '3.3.7',
-29 silly addNameRange     '3.3.8',
-29 silly addNameRange     '3.4.0',
-29 silly addNameRange     '3.4.1',
-29 silly addNameRange     '3.4.2',
-29 silly addNameRange     '3.4.3',
-29 silly addNameRange     '3.4.4',
-29 silly addNameRange     '3.4.5',
-29 silly addNameRange     '3.4.6',
-29 silly addNameRange     '3.4.7',
-29 silly addNameRange     '3.4.8',
-29 silly addNameRange     '4.0.0-rc1',
-29 silly addNameRange     '4.0.0-rc2',
-29 silly addNameRange     '3.5.0',
-29 silly addNameRange     '4.0.0-rc3',
-29 silly addNameRange     '4.0.0-rc4',
-29 silly addNameRange     '3.5.1',
-29 silly addNameRange     '4.0.0',
-29 silly addNameRange     '3.5.2',
-29 silly addNameRange     '4.1.0',
-29 silly addNameRange     '4.1.1',
-29 silly addNameRange     '3.5.3',
-29 silly addNameRange     '4.1.2',
-29 silly addNameRange     '3.6.0',
-29 silly addNameRange     '4.2.0',
-29 silly addNameRange     '3.7.0',
-29 silly addNameRange     '3.8.0',
-29 silly addNameRange     '4.3.0',
-29 silly addNameRange     '4.3.1',
-29 silly addNameRange     '3.8.1',
-29 silly addNameRange     '4.3.2',
-29 silly addNameRange     '3.9.0',
-29 silly addNameRange     '4.4.0',
-29 silly addNameRange     '4.4.1',
-29 silly addNameRange     '3.10.0',
-29 silly addNameRange     '3.10.1',
-29 silly addNameRange     '3.10.2',
-29 silly addNameRange     '3.10.3',
-29 silly addNameRange     '3.10.4',
-29 silly addNameRange     '4.4.2',
-29 silly addNameRange     '3.10.5',
-29 silly addNameRange     '4.4.3',
-29 silly addNameRange     '3.11.0',
-29 silly addNameRange     '4.4.4',
-29 silly addNameRange     '3.12.0',
-29 silly addNameRange     '3.12.1',
-29 silly addNameRange     '4.4.5',
-29 silly addNameRange     '3.13.0',
-29 silly addNameRange     '4.5.0',
-29 silly addNameRange     '4.5.1',
-29 silly addNameRange     '3.14.0',
-29 silly addNameRange     '4.6.0',
-29 silly addNameRange     '4.6.1',
-29 silly addNameRange     '3.15.0',
-29 silly addNameRange     '4.7.0',
-29 silly addNameRange     '3.15.1',
-29 silly addNameRange     '4.7.1',
-29 silly addNameRange     '3.15.2',
-29 silly addNameRange     '4.7.2',
-29 silly addNameRange     '4.7.3',
-29 silly addNameRange     '3.15.3',
-29 silly addNameRange     '4.7.4',
-29 silly addNameRange     '3.16.0',
-29 silly addNameRange     '4.8.0',
-29 silly addNameRange     '3.16.1',
-29 silly addNameRange     '4.8.1',
-29 silly addNameRange     '3.16.2',
-29 silly addNameRange     '4.8.2',
-29 silly addNameRange     '3.16.3',
-29 silly addNameRange     '3.16.4',
-29 silly addNameRange     '4.8.3',
-29 silly addNameRange     '3.16.5',
-29 silly addNameRange     '3.16.6',
-29 silly addNameRange     '4.8.4',
-29 silly addNameRange     '3.16.7',
-29 silly addNameRange     '4.8.5',
-29 silly addNameRange     '3.16.8',
-29 silly addNameRange     '4.8.6',
-29 silly addNameRange     '3.16.9',
-29 silly addNameRange     '4.8.7',
-29 silly addNameRange     '3.16.10',
-29 silly addNameRange     '4.8.8',
-29 silly addNameRange     '3.17.0',
-29 silly addNameRange     '3.17.1',
-29 silly addNameRange     '4.9.0',
-29 silly addNameRange     '3.17.2',
-29 silly addNameRange     '4.9.1',
-29 silly addNameRange     '4.9.2',
-29 silly addNameRange     '3.17.3',
-29 silly addNameRange     '4.9.3',
-29 silly addNameRange     '3.17.4',
-29 silly addNameRange     '4.9.4',
-29 silly addNameRange     '3.17.5',
-29 silly addNameRange     '4.9.5',
-29 silly addNameRange     '3.17.6',
-29 silly addNameRange     '3.17.7',
-29 silly addNameRange     '4.9.6',
-29 silly addNameRange     '4.9.7',
-29 silly addNameRange     '3.17.8',
-29 silly addNameRange     '4.9.8',
-29 silly addNameRange     '3.18.0',
-29 silly addNameRange     '3.18.1',
-29 silly addNameRange     '4.10.0' ] ]
-30 verbose addNamed [ 'express', '4.10.0' ]
-31 verbose addNamed [ '4.10.0', '4.10.0' ]
-32 silly lockFile 1371ef67-express-4-10-0 express@4.10.0
-33 verbose lock express@4.10.0 /Users/tekmcleod/.npm/1371ef67-express-4-10-0.lock
-34 silly lockFile 18de4d8a-s-org-express-express-4-10-0-tgz https://registry.npmjs.org/express/-/express-4.10.0.tgz
-35 verbose lock https://registry.npmjs.org/express/-/express-4.10.0.tgz /Users/tekmcleod/.npm/18de4d8a-s-org-express-express-4-10-0-tgz.lock
-36 verbose addRemoteTarball [ 'https://registry.npmjs.org/express/-/express-4.10.0.tgz',
-36 verbose addRemoteTarball   '52719d5a1cde4edd47b87da43b1a7c337d761a12' ]
-37 info retry fetch attempt 1 at 08:31:22
-38 verbose fetch to= /var/folders/n6/_hsswnh92w72mhv3hqyqfsvm0000gn/T/npm-4828-fmL7V5cY/registry.npmjs.org/express/-/express-4.10.0.tgz
-39 http GET https://registry.npmjs.org/express/-/express-4.10.0.tgz
-40 http 200 https://registry.npmjs.org/express/-/express-4.10.0.tgz
-41 silly lockFile 18de4d8a-s-org-express-express-4-10-0-tgz https://registry.npmjs.org/express/-/express-4.10.0.tgz
-42 silly lockFile 18de4d8a-s-org-express-express-4-10-0-tgz https://registry.npmjs.org/express/-/express-4.10.0.tgz
-43 silly lockFile 1371ef67-express-4-10-0 express@4.10.0
-44 silly lockFile 1371ef67-express-4-10-0 express@4.10.0
-45 silly lockFile 64a534c1-express express@
-46 silly lockFile 64a534c1-express express@
-47 error Error: EACCES, mkdir '/Users/tekmcleod/.npm/express/4.10.0'
-47 error  { [Error: EACCES, mkdir '/Users/tekmcleod/.npm/express/4.10.0']
-47 error   errno: 3,
-47 error   code: 'EACCES',
-47 error   path: '/Users/tekmcleod/.npm/express/4.10.0' }
-48 error Please try running this command again as root/Administrator.
-49 error System Darwin 14.0.0
-50 error command "node" "/usr/local/bin/npm" "install" "express" "--save-dev"
-51 error cwd /Users/tekmcleod/Developer/Github Projects/KenPhilJulie
-52 error node -v v0.10.32
-53 error npm -v 1.4.28
-54 error path /Users/tekmcleod/.npm/express/4.10.0
-55 error code EACCES
-56 error errno 3
-57 error stack Error: EACCES, mkdir '/Users/tekmcleod/.npm/express/4.10.0'
-58 verbose exit [ 3, true ]
+4 warn package.json js@0.1.0 No repository field.
+5 warn package.json node@0.0.0 No description
+6 warn package.json node@0.0.0 No repository field.
+7 warn package.json node@0.0.0 No README data
+8 verbose cache add [ 'brewery-db', null ]
+9 verbose cache add name=undefined spec="brewery-db" args=["brewery-db",null]
+10 verbose parsed url { protocol: null,
+10 verbose parsed url   slashes: null,
+10 verbose parsed url   auth: null,
+10 verbose parsed url   host: null,
+10 verbose parsed url   port: null,
+10 verbose parsed url   hostname: null,
+10 verbose parsed url   hash: null,
+10 verbose parsed url   search: null,
+10 verbose parsed url   query: null,
+10 verbose parsed url   pathname: 'brewery-db',
+10 verbose parsed url   path: 'brewery-db',
+10 verbose parsed url   href: 'brewery-db' }
+11 silly lockFile c97013c9-brewery-db brewery-db
+12 verbose lock brewery-db /Users/julierich/.npm/c97013c9-brewery-db.lock
+13 silly lockFile c97013c9-brewery-db brewery-db
+14 silly lockFile c97013c9-brewery-db brewery-db
+15 verbose addNamed [ 'brewery-db', '' ]
+16 verbose addNamed [ null, '*' ]
+17 silly lockFile 64c55798-brewery-db brewery-db@
+18 verbose lock brewery-db@ /Users/julierich/.npm/64c55798-brewery-db.lock
+19 silly addNameRange { name: 'brewery-db', range: '*', hasData: false }
+20 verbose request where is /brewery-db
+21 verbose request registry https://registry.npmjs.org/
+22 verbose request id 49184700d2780566
+23 verbose url raw /brewery-db
+24 verbose url resolving [ 'https://registry.npmjs.org/', './brewery-db' ]
+25 verbose url resolved https://registry.npmjs.org/brewery-db
+26 verbose request where is https://registry.npmjs.org/brewery-db
+27 info trying registry request attempt 1 at 14:39:04
+28 http GET https://registry.npmjs.org/brewery-db
+29 http 404 https://registry.npmjs.org/brewery-db
+30 verbose headers { date: 'Mon, 27 Oct 2014 19:39:06 GMT',
+30 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+30 verbose headers   'content-type': 'application/json',
+30 verbose headers   'cache-control': 'max-age=0',
+30 verbose headers   'content-length': '52',
+30 verbose headers   'accept-ranges': 'bytes',
+30 verbose headers   via: '1.1 varnish',
+30 verbose headers   age: '0',
+30 verbose headers   'x-served-by': 'cache-dfw1821-DFW',
+30 verbose headers   'x-cache': 'MISS',
+30 verbose headers   'x-cache-hits': '0',
+30 verbose headers   'x-timer': 'S1414438746.703217,VS0,VE64',
+30 verbose headers   'keep-alive': 'timeout=10, max=50',
+30 verbose headers   connection: 'Keep-Alive' }
+31 silly registry.get cb [ 404,
+31 silly registry.get   { date: 'Mon, 27 Oct 2014 19:39:06 GMT',
+31 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+31 silly registry.get     'content-type': 'application/json',
+31 silly registry.get     'cache-control': 'max-age=0',
+31 silly registry.get     'content-length': '52',
+31 silly registry.get     'accept-ranges': 'bytes',
+31 silly registry.get     via: '1.1 varnish',
+31 silly registry.get     age: '0',
+31 silly registry.get     'x-served-by': 'cache-dfw1821-DFW',
+31 silly registry.get     'x-cache': 'MISS',
+31 silly registry.get     'x-cache-hits': '0',
+31 silly registry.get     'x-timer': 'S1414438746.703217,VS0,VE64',
+31 silly registry.get     'keep-alive': 'timeout=10, max=50',
+31 silly registry.get     connection: 'Keep-Alive' } ]
+32 silly lockFile 64c55798-brewery-db brewery-db@
+33 silly lockFile 64c55798-brewery-db brewery-db@
+34 error 404 404 Not Found: brewery-db
+34 error 404
+34 error 404 'brewery-db' is not in the npm registry.
+34 error 404 You should bug the author to publish it
+34 error 404
+34 error 404 Note that you can also install from a
+34 error 404 tarball, folder, or http url, or git url.
+35 error System Darwin 13.4.0
+36 error command "node" "/usr/local/bin/npm" "install" "brewery-db"
+37 error cwd /Users/julierich/Github Projects/GP2
+38 error node -v v0.10.32
+39 error npm -v 1.4.28
+40 error code E404
+41 verbose exit [ 1, true ]
