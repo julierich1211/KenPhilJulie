@@ -23,7 +23,7 @@ function app() {
     });
 }
 
-function beerMe(options) {
+function BeerMe(options) {
     "use strict";
     if (!options.api_key) {
         throw new Error("Yo dawg, I heard you like APIs. Y U NO APIKEY?!?!?!");
@@ -35,10 +35,10 @@ function beerMe(options) {
 
     this.init();
 
-    console.log(new BeerMe);
+    //console.log(new BeerMe);
 }
 
-beerMe.prototype.pullAllStyles = function() {
+BeerMe.prototype.pullAllStyles = function() {
     "use strict";
     return $.getJSON(
             this.complete_api_url + "styles/?key=" + this.api_key + "&callback=?")
@@ -48,13 +48,13 @@ beerMe.prototype.pullAllStyles = function() {
         });
 
 };
-beerMe.prototype.pullSingleCategoryID = function(id) {
+BeerMe.prototype.pullSingleCategoryID = function(id) {
     return $.getJSON(this.complete_api_url + "styles/" + id + ".js?api_key=" + this.api_key + "&callback=?").then(function(data) {
         return data;
     });
 
 };
-beerMe.prototype.loadTemplate = function(name) {
+BeerMe.prototype.loadTemplate = function(name) {
     if (!this.templates) {
         this.templates = {};
     }
@@ -72,28 +72,28 @@ beerMe.prototype.loadTemplate = function(name) {
         });
     }
 };
-beerMe.prototype.drawStyle = function(templateString, data) {
+BeerMe.prototype.drawStyle = function(templateString, data) {
     var grid = document.querySelector("#formOne");
     var bigHTMLString = data.results.map(function(style) {
         return_.template(templateString, style);
     }).join('');
     grid.innerHTML = bigHTMLString;
 };
-beerMe.prototype.drawSingleCategoryID = function(template, data) {
+BeerMe.prototype.drawSingleCategoryID = function(template, data) {
     var style = data.results[0];
     var grid = document.querySelector("#formOne");
-    var bigHTMLString = _.template(template, style);
+    var bigHTMLString = _.template(template, formbegin);
 
     grid.innerHTML = bigHTMLString;
 };
 
-beerMe.prototype.init = function() {
+BeerMe.prototype.init = function() {
     "use strict";
     var self = this;
 
     Path.map("#/").to(function() {
         $.when(
-            self.loadTemplate("style"),
+            self.loadTemplate("formbegin"),
             self.pullAllStyles()
         ).then(function() {
             self.drawStyle(arguments[0], arguments[1]);
@@ -106,7 +106,7 @@ beerMe.prototype.init = function() {
     });
     Path.map("#/style/:id").to(function() {
         $.when(
-            self.loadTemplate("drawSingleCategoryID"),
+            self.loadTemplate("formmiddle"),
             self.pullSingleCategoryID(this.params.id)
         ).then(function() {
             self.drawSingleCategoryID(arguments[0], arguments[1]);
