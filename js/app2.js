@@ -36,7 +36,7 @@ pullDetail.prototype.detail = function() {
     $.when(
         this.getInfo(),
         this.getInfoBeer(),
-        this.loadTemplate('formmiddle')
+        //this.loadTemplate('formmiddle')
         this.loadTemplate('formBegin')
     ).then(function(formmiddle, formmiddleHTML) {
         own.placeDetail(formmiddleHTML, formmiddle);
