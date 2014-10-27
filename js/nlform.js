@@ -70,7 +70,7 @@
 			this.fld = document.createElement( 'div' );
 			this.fld.className = 'nl-field nl-dd';
 			this.toggle = document.createElement( 'a' );
-			this.toggle.innerHTML = this.elOriginal.options[ this.elOriginal.selectedIndex ].innerHTML;
+			this.toggle.innerHTML = this.elOriginal.options[ this.elOriginal.selectedIndex].innerHTML;
 			this.toggle.className = 'nl-field-toggle';
 			this.optionsList = document.createElement( 'ul' );
 			var ihtml = '';

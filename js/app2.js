@@ -22,14 +22,20 @@ pullDetail.prototype.loadTemplate = function(templateName) {
         return hstring;
     });
 };
-pullDetail.prototype.placeDetail = function(beerHTML, beer) {
+pullDetail.prototype.placeDetail = function(formmiddleHTML, formmiddle) {
     var d = new Date(beerName.created_at);
     beerName.joined = ["Joined On", d.toDateString()].join("");
-    document.querySelector('').innerHTML = _.template(beerHTML, beer);
+    document.querySelector('').innerHTML = _.template(formmiddleHTML, formmiddle);
 };
+<<<<<<< HEAD
 pullDetail.prototype.placeBeerData = function(id) {
     document.querySelector('#formOne').innerHTML = openBeer.map(function(openBeer){
         return _.template(openBeerHTML, openBeer);
+=======
+pullDetail.prototype.placeBeerData = function(formbeginHTML, formBegin) {
+    document.querySelector('#formOne').innerHTML = formbegin.map(function(formbegin){
+        return _.template(formbeginHTML, formBegin);
+>>>>>>> 010dc50d0e57580858e12a6e99be25e6659fb03d
     }).join('');
 };
 
@@ -59,11 +65,18 @@ pullDetail.prototype.detail = function() {
     $.when(
         this.getInfo(),
         this.getInfoBeer(),
+        //this.loadTemplate('formmiddle')
         this.loadTemplate('formBegin')
+<<<<<<< HEAD
         //this.loadTemplate('openBeer')
     ).then(function(formBeginHTML, formBegin) {
         own.placeDetail(formBeginHTML, formBegin);
         //own.placeRepoData(openBeerHTML, openBeer);
+=======
+    ).then(function(formmiddle, formmiddleHTML) {
+        own.placeDetail(formmiddleHTML, formmiddle);
+        own.placeBeerData(formbeginHTML, formBegin);
+>>>>>>> 010dc50d0e57580858e12a6e99be25e6659fb03d
     });
 }
 
