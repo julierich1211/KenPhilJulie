@@ -1,4 +1,4 @@
-http: //api.brewerydb.com/v2/styles?key=c6e086abdb374e9c5b9de44506e25ecb
+http://api.brewerydb.com/v2/styles?key=c6e086abdb374e9c5b9de44506e25ecb
     {
         "message": "Request Successful",
         "data": [{
