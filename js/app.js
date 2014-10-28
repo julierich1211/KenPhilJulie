@@ -23,9 +23,18 @@ function app() {
 
 }
 
+<<<<<<< HEAD
+=======
+function BeerClient(options) {
+    if (!options.api_key) {
+        throw new Error("Yo dawg, I heard you like APIs. Y U NO APIKEY!?!?");
+
+    } else {
+>>>>>>> 022d65cb12fd2fe48888f5dedd295b879f43a3b0
 
 
 
+<<<<<<< HEAD
 function BeerClient(options) {
     var brewerydb = $.getJSON("./js/brewerydb.json", function() {
             console.log("success");
@@ -39,6 +48,12 @@ function BeerClient(options) {
         .always(function() {
             console.log("complete");
         });
+=======
+        // derp.
+        this.init();
+    }
+
+>>>>>>> 022d65cb12fd2fe48888f5dedd295b879f43a3b0
 }
 
 function pullAllActiveListings(callback) {
@@ -116,8 +131,33 @@ BeerClient.prototype.loadTemplate = function(name) {
         grid.innerHTML = bigHtmlString;
     };
 
+<<<<<<< HEAD
     // BeerClient.prototype.init = function() {
     //   var self = this;
+=======
+/*
+BeerClient.prototype.setupRouting = function(){
+    var self = this;
+
+    Path.map("#/").to(function() {
+        self.drawStyle(self.formBiginHtml, self.latestData);
+    });
+
+    Path.map("#/message/:anymessage").to(function(){
+        alert(this.params.anymessage);
+    });
+
+    Path.map("#/categoryID/:id").to(function() {
+        self.drawSingleCategoryID(this.params.id);
+    });
+
+    // set the default hash
+    Path.root("#/");
+*/
+
+BeerClient.prototype.init = function() {
+    var self = this;
+>>>>>>> 022d65cb12fd2fe48888f5dedd295b879f43a3b0
     // start doing shit...
     // $.when(
     //   this.pullAllActiveListings(),
