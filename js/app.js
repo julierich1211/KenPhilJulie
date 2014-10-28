@@ -23,37 +23,50 @@ function app() {
 
 }
 
+
+
+
 function BeerClient(options) {
-    if (!options.api_key) {
-        throw new Error("Yo dawg, I heard you like APIs. Y U NO APIKEY!?!?");
-    } else {
+    var brewerydb = $.getJSON("./js/brewerydb.json", function() {
+            console.log("success");
+        })
+        .done(function() {
+            console.log("second success");
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+}
 
-
-        this.bdb_url = "http://api.brewerydb.com/";
-        this.version = options.api_version || "v2/"; // handle api version... if not given, just use the default "v2"
-        this.api_key = options.api_key;
-        this.complete_api_url = this.bdb_url + this.version;
-
-        // derp.
-        this.init();
-    }
+function pullAllActiveListings(callback) {
+    $.getJSON("./js/brewerydb.json",
+        function(data) {
+            var allBeer = [];
+            $.each(data.items,
+                function(item) {
+                    allBeer.push(item);
+                });
+            callback(allBeer);
+            // callback(data.items); should also work
+        });
 }
 
 BeerClient.prototype.pullAllActiveListings = function() {
-    return $.getJSON(
-
-            this.complete_api_url + "search/style" + "?key=" + this.api_key + "&q=ipa"
-        )
-        .then(function(data) {
-            console.log(data);
-            return data;
-        });
+    return $.getJSON('brewerydb.json').then(function(data) {
+        console.log(data);
+        return data;
+    });
 };
 
 BeerClient.prototype.pullSingleListing = function(id) {
-    return $.getJSON(this.complete_api_url + "search/style" + "?key=" + this.api_key + "&q=ipa").then(function(data) {
+    return $.getJSON('brewerydb.json').then(function(data) {
+        console.log(data);
         return data;
     });
+
 };
 
 BeerClient.prototype.loadTemplate = function(name) {
@@ -73,34 +86,44 @@ BeerClient.prototype.loadTemplate = function(name) {
             return data;
         });
     }
-};
+    BeerClient.prototype.init = function() {
+        var self = this;
+        // start doing shit...
+        $.when(
+            this.pullAllActiveListings(),
+            this.pullSingleListing(),
+            this.loadTemplate('formBegin')
+        ).then(function(formBegin, formBeginHtml) {
+            self.pullAllActiveListings(formBeginHtml, formBegin);
+        });
+    };
 
-BeerClient.prototype.drawListings = function(templateString, data) {
-    var grid = document.querySelector("#formOne");
+    BeerClient.prototype.drawListings = function(templateString, data) {
+        var grid = document.querySelector("#formOne");
 
-    var bigHtmlString = data.results.map(function(formBegin) {
-        return _.template(templateString, formBegin);
-    }).join('');
+        var bigHtmlString = data.results.map(function(formBegin) {
+            return _.template(templateString, formBegin);
+        }).join('');
 
-    grid.innerHTML = bigHtmlString;
-};
+        grid.innerHTML = bigHtmlString;
+    };
 
-BeerClient.prototype.drawSingleListing = function(template, data) {
-    var listing = data.results[0];
-    var grid = document.querySelector("#formOne");
-    var bigHtmlString = _.template(template, formBegin);
+    BeerClient.prototype.drawSingleListing = function(template, data) {
+        var listing = data.results[0];
+        var grid = document.querySelector("#formOne");
+        var bigHtmlString = _.template(template, formBegin);
 
-    grid.innerHTML = bigHtmlString;
-};
+        grid.innerHTML = bigHtmlString;
+    };
 
-BeerClient.prototype.init = function() {
-    var self = this;
+    // BeerClient.prototype.init = function() {
+    //   var self = this;
     // start doing shit...
-    $.when(
-        this.pullAllActiveListings(),
-        this.pullSingleListing(),
-        this.loadTemplate('formBegin')
-    ).then(function(formBegin, formBeginHtml) {
-        self.pullAllActiveListings(formBeginHtml, formBegin);
-    });
+    // $.when(
+    //   this.pullAllActiveListings(),
+    // this.pullSingleListing(),
+    // this.loadTemplate('formBegin')
+    //).then(function(formBegin, formBeginHtml) {
+    //  self.pullAllActiveListings(formBeginHtml, formBegin);
+    //});
 };
