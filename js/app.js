@@ -42,9 +42,26 @@ YummlyClient.prototype.getAllRecipes = function() {
         return data.matches;
     });
     }
+YummlyClient.prototype.loadTemplate = function(name) {
+    if (!this.templates) {
+        this.templates = {};
+    }
 
-YummlyClient.prototype.showAllRecipes = function(data) {
-    var grid = document.querySelector("body");
+    var self = this;
+
+    if (this.templates[name]) {
+        var promise = $.Deferred();
+        promise.resolve(this.templates[name]);
+        return promise;
+    } else {
+        return $.get('./templates/' + name + '.html').then(function(data) {
+            self.templates[name] = data; // <-- cache it for any subsequent requests to this template
+            return data;
+        });
+    }
+}
+YummlyClient.prototype.showAllRecipes = function(leftHtml, left) {
+    var grid = document.querySelector("#lefty").innerHTML = _.template(leftHtml, left);;
 
     // body...
 };
@@ -53,9 +70,10 @@ YummlyClient.prototype.init = function() {
     var self = this;
 
     $.when(
-        this.getAllRecipes()
+        this.getAllRecipes(),
+        this.loadTemplate('left')
         ).then(function(){
-        self.showAllRecipes
+        self.showAllRecipes(arguments[0], arguments[1]);
         })
     
 }
