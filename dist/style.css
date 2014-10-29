@@ -52,9 +52,16 @@ code {
   color: #007FFF;
 }
 .layout {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   min-height: 100vh;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 .page-nav {
   box-sizing: border-box;
@@ -67,7 +74,8 @@ code {
   z-index: 0;
   background: #EEE;
   width: 100%;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all .1s ease-in-out;
+          transition: all .1s ease-in-out;
 }
 .wrap {
   box-sizing: border-box;
@@ -94,7 +102,10 @@ code {
   width: 3rem;
   background: #FFF;
   border: 1px solid transparent;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 .menu-button:hover {
   border: 1px solid #007FFF;
@@ -105,7 +116,8 @@ code {
   border: 1px solid transparent;
 }
 .open {
-  transform: translate3d(-15rem, 0, 0);
+  -webkit-transform: translate3d(-15rem, 0, 0);
+          transform: translate3d(-15rem, 0, 0);
 }
 .menu-button-icon {
   width: 2rem;
@@ -160,21 +172,25 @@ code {
   font-size: 1rem;
   color: #007FFF;
   background: transparent;
-  transition: all .2s ease-in;
+  -webkit-transition: all .2s ease-in;
+          transition: all .2s ease-in;
 }
 .menu-link {
   box-sizing: border-box;
   padding-left: 3rem;
   display: block;
   color: #007FFF;
-  transition: color 0.2s ease-in;
+  -webkit-transition: color 0.2s ease-in;
+          transition: color 0.2s ease-in;
 }
 .menu-link:hover {
   color: hsl(210, 100%, 60%);
   border-bottom: none;
 }
 .link-top {
-  align-self: flex-end;
+  -webkit-align-self: flex-end;
+      -ms-flex-item-align: end;
+          align-self: flex-end;
 }
 .button {
   position: relative;
@@ -189,7 +205,8 @@ code {
   border-radius: 2px;
   color: #007FFF;
   font-size: 1.25rem;
-  transition: background-color, 0.15s;
+  -webkit-transition: background-color, 0.15s;
+          transition: background-color, 0.15s;
 }
 .button:hover {
   background: #3399FF;
