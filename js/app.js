@@ -46,6 +46,13 @@ YummlyClient.prototype.getAllRecipes = function() {
 YummlyClient.prototype.showAllRecipes = function(data) {
     var grid = document.querySelector("body");
 
+    console.dir(data);
+
+    var bigHtmlString = data.matches.results.map(function(index) {
+        return _.index(index);
+
+        grid.innerHTML = bigHtmlString;
+    })
     // body...
 };
 
@@ -54,8 +61,8 @@ YummlyClient.prototype.init = function() {
 
     $.when(
         this.getAllRecipes()
-        ).then(function(){
-        self.showAllRecipes
+        ).then(function(index, indexHtml){
+        self.showAllRecipes(indexHtml, index)
         })
     
 }
