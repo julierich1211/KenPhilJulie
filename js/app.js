@@ -15,7 +15,7 @@ function app() {
                 _.templateSettings.interpolate = /{([\s\S]+?)}/g;
 
                 var options = {
-                    app_key: "_app_id=a383b8866&_app_key=641fc30357e1eab237c43afe7cb15d59"
+                    app_key: "_app_id=9effb035&_app_key=a9bb7355dceffb0ebf4c559001cad27f"
                  }
 
                 var client = new YummlyClient(options);
@@ -28,7 +28,7 @@ function YummlyClient(options) {
         throw new Error("Yo dawg, I heard you like APIs. Y U NO APIKEY?!?!?");
     }
     this.yummly_url = "http://api.yummly.com/v1/api/recipes?";
-    this.api_key = options.api_key;
+    this.app_key = options.app_key;
     this.complete_api_url = this.yummly_url + options.app_key + "&q=soup"; 
     //instead of "?" we could put something so that the user types in what they are looking for i.e. soup, cake, steak, etc..
     this.init();
@@ -59,4 +59,3 @@ YummlyClient.prototype.init = function() {
         })
     
 }
-;
