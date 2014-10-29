@@ -4,120 +4,59 @@ window.onload = app;
 
 function app() {
 
-    // load some scripts (uses promises :D)
-    loader.load({
-        url: "./bower_components/jquery/dist/jquery.min.js"
-    }, {
-        url: "./bower_components/lodash/dist/lodash.min.js"
-    }, {
-        url: "./bower_components/pathjs/path.min.js"
-    }).then(function() {
-        _.templateSettings.interpolate = /{([\s\S]+?)}/g;
+        // load some scripts (uses promises :D)
+        loader.load({
+            url: "./bower_components/jquery/dist/jquery.min.js"
+        }, {
+            url: "./bower_components/lodash/dist/lodash.min.js"
+        }, {
+            url: "./bower_components/pathjs/path.min.js"
+        }).then(function() {
+                _.templateSettings.interpolate = /{([\s\S]+?)}/g;
 
-        var options = {
-            app_key: "537c65777266e877fd1e9e70f24ab7ac"
-            app_id: "383b8866"
+                var options = {
+                    app_key: "_app_id=a383b8866&_app_key=641fc30357e1eab237c43afe7cb15d59"
+                 }
+
+                var client = new YummlyClient(options);
+
+            });
         }
-        // start app?
-        var client = new Client(options);
-    })
 
-}
-
-function Client(options) {
-    if (!options.api_key) {
-        throw new Error("Y U NO APIKEY!?!?");
+function YummlyClient(options) {
+    if (!options.app_key) {
+        throw new Error("Yo dawg, I heard you like APIs. Y U NO APIKEY?!?!?");
     }
-    this.yum_url = "https://api.yummly.com/";
-    this.version = options.api_version || "v1/"; // handle api version... if not given, just use the default "v2"
-    this.app_key = options.app_key;
-    this.app_id = options.app_id;
-    this.complete_api_url = this.yum_url + this.version;
+    this.yummly_url = "http://api.yummly.com/v1/api/recipes?";
+    this.api_key = options.api_key;
+    this.complete_api_url = this.yummly_url + options.app_key + "&q=soup"; 
+    //instead of "?" we could put something so that the user types in what they are looking for i.e. soup, cake, steak, etc..
+    this.init();
 
-    // derp. _app_id=app-id&_app_key=app-key
-    this.setupRouting();
 }
 
-EtsyClient.prototype.pullAllActiveListings = function() {
-    return $.getJSON(
-        this.complete_api_url + "listings/active.js?api_key=" + this.api_key + "&callback=?"
-    )
-        .then(function(data) {
-            return data;
-        });
-}
-
-EtsyClient.prototype.pullSingleListing = function(id) {
-    return $.getJSON(this.complete_api_url + "listings/"+id+".js?api_key=" + this.api_key + "&callback=?").then(function(data) {
-        return data;
+YummlyClient.prototype.getAllRecipes = function() {
+    return $.getJSON(this.complete_api_url)
+    .then(function(data) {
+        console.log(data.matches)
+        return data.matches;
     });
-}
-
-EtsyClient.prototype.loadTemplate = function(name) {
-    if (!this.templates) {
-        this.templates = {};
     }
 
+YummlyClient.prototype.showAllRecipes = function(data) {
+    var grid = document.querySelector("body");
+
+    // body...
+};
+
+YummlyClient.prototype.init = function() {
     var self = this;
 
-    if (this.templates[name]) {
-        var promise = $.Deferred();
-        promise.resolve(this.templates[name]);
-        return promise;
-    } else {
-        return $.get('./templates/' + name + '.html').then(function(data) {
-            self.templates[name] = data; // <-- cache it for any subsequent requests to this template
-            return data;
-        });
-    }
-}
-
-EtsyClient.prototype.drawListings = function(templateString, data) {
-    var grid = document.querySelector("#listings");
-
-    var bigHtmlString = data.results.map(function(listing) {
-        return _.template(templateString, listing);
-    }).join('');
-
-    grid.innerHTML = bigHtmlString;
-}
-
-EtsyClient.prototype.drawSingleListing = function(template, data) {
-    var listing = data.results[0];
-    var grid = document.querySelector("#listings");
-    var bigHtmlString = _.template(template, listing);
-
-    grid.innerHTML = bigHtmlString;
-}
-
-EtsyClient.prototype.setupRouting = function() {
-    var self = this;
-
-    Path.map("#/").to(function() {
-        $.when(
-            self.loadTemplate("listing"),
-            self.pullAllActiveListings()
-        ).then(function() {
-            self.drawListings(arguments[0], arguments[1]);
-
-            console.dir(self)
+    $.when(
+        this.getAllRecipes()
+        ).then(function(){
+        self.showAllRecipes
         })
-    });
-
-    Path.map("#/message/:anymessage").to(function() {
-        alert(this.params.anymessage);
-    })
-
-    Path.map("#/listing/:id").to(function() {
-        $.when(
-            self.loadTemplate("single-page-listing"),
-            self.pullSingleListing(this.params.id)
-        ).then(function() {
-            self.drawSingleListing(arguments[0], arguments[1]);
-        })
-    });
-
-    // set the default hash to draw all listings
-    Path.root("#/");
-    Path.listen();
+    
 }
+;
