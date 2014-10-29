@@ -25,7 +25,7 @@ function app() {
 
 function YummlyClient(options) {
     if (!options.app_key) {
-        throw new Error("Sorry, you SUCK!!!");
+        throw new Error("Yo dawg, I heard you like APIs. Y U NO APIKEY?!?!?");
     }
     this.yummly_url = "http://api.yummly.com/v1/api/recipes?";
     this.app_key = options.app_key;
@@ -81,82 +81,7 @@ YummlyClient.prototype.init = function() {
         this.getAllRecipes(),
         this.loadTemplate('left')
         ).then(function(){
-        self.showAllRecipes(arguments[0], arguments[1]);
+        self.showAllRecipes(arguments[0], arguments[1])
         })
     
-}
-YummlyClient.prototype.loadTemplate = function(name) {
-    if (!this.templates) {
-        this.templates = {};
-    }
-
-    var self = this;
-
-    if (this.templates[name]) {
-        var promise = $.Deferred();
-        promise.resolve(this.templates[name]);
-        return promise;
-    } else {
-        return $.get('./templates/' + name + '.html').then(function(data) {
-            self.templates[name] = data; // <-- cache it for any subsequent requests to this template
-            return data;
-        });
-    }
-}
-
-YummlyClient.prototype.drawListings = function(templateString, data) {
-    var grid = document.querySelector("#div");
-
-    var bigHtmlString = data.map(function(listing) {
-        return _.template(templateString, listing);
-    }).join('');
-
-    grid.innerHTML = bigHtmlString;
-}
-
-YummlyClient.prototype.drawSingleListing = function(template, data) {
-    var listing = data;
-
-    var grid = document.querySelector("#yum");
-
-    var bigHtmlString = _.template(template, listing);
-
-    grid.innerHTML = bigHtmlString;
-}
-
-YummlyClient.prototype.setupRouting = function() {
-    var self = this;
-
-    Path.map("#/").to(function() { 
-        $.when(
-            self.loadTemplate("yum"),
-            self.pullAllActiveListings()
-        ).then(function() {
-            self.drawListings(arguments[0], arguments[1]);
-
-            console.dir(self)
-        })
-    });  
-
-    Path.map("#/message/:anymessage").to(function() {
-        alert(this.params.anymessage);
-    })
-
-   // Path.map("#/listing/:id").to(function() {  //
-  //      self.drawSingleListing(this.params.id);
-  //  });
-Path.map("#/recipe/:id").to(function() {
-        $.when(
-            self.loadTemplate("yumsingle"),
-            self.pullSingleListing(this.params.id)
-        ).then(function() {
-            self.drawSingleListing(arguments[0], arguments[1]);
-        })
-    });
-    // set the default hash
-    Path.root("#/");  //if there is no hash on url, it will set the default route to be #/
-
-
-        Path.listen();
-   // })
 }
