@@ -42,6 +42,12 @@ YummlyClient.prototype.getAllRecipes = function() {
             return data.matches;
         });
 }
+
+YummlyClient.prototype.getSingleRecipe = function() {
+    return $.getJSON(this.complete_api_url).then(function(data) {
+        return data.matches;
+    });
+}
 YummlyClient.prototype.loadTemplate = function(name) {
     if (!this.templates) {
         this.templates = {};
@@ -61,12 +67,13 @@ YummlyClient.prototype.loadTemplate = function(name) {
     }
 }
 YummlyClient.prototype.showAllRecipes = function(data, html) {
-    var grid =document.querySelector("#lefty")
-    var bigHtmlString = data.map(function(x) {
-        return _.template(html, x);
+    console.log(data);
+    console.log(html);
+    document.querySelector("#lefty").innerHTML = 
+    data.map(function(x) {
 
-    }).join(' ');
-    grid.innerHTML=bigHtmlString;
+    return    _.template(html, x);
+    }).join('');
 }
 
 YummlyClient.prototype.init = function() {
@@ -79,4 +86,44 @@ YummlyClient.prototype.init = function() {
         self.showAllRecipes(x, y);
     });
 
+}
+/*
+YummlyClient.prototype.drawSingleListing = function(template, data) {
+    var listing = data.results[0];
+    var grid = document.querySelector("#listings");
+    var bigHtmlString = _.template(template, listing);
+
+    grid.innerHTML = bigHtmlString;
+}
+
+YummlyClient.prototype.setupRouting = function() {
+    var self = this;
+
+    Path.map("#/").to(function() {
+        $.when(
+            self.loadTemplate("listing"),
+            self.pullAllActiveListings()
+        ).then(function() {
+            self.drawListings(arguments[0], arguments[1]);
+
+            console.dir(self)
+        })
+    });
+
+    Path.map("#/message/:anymessage").to(function() {
+        alert(this.params.anymessage);
+    })
+
+    Path.map("#/listing/:id").to(function() {
+        $.when(
+            self.loadTemplate("single-page-listing"),
+            self.pullSingleListing(this.params.id)
+        ).then(function() {
+            self.drawSingleListing(arguments[0], arguments[1]);
+        })
+    });
+
+    // set the default hash to draw all listings
+    Path.root("#/");
+    Path.listen();
 }
