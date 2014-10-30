@@ -63,7 +63,8 @@ YummlyClient.prototype.loadTemplate = function(name) {
 YummlyClient.prototype.showAllRecipes = function(data, html) {
     document.querySelector("#lefty").innerHTML = 
     data.map(function(x) {
-        _.template(html, x);
+        return _.template(html, x);
+
     });
 }
 
