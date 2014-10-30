@@ -42,6 +42,12 @@ YummlyClient.prototype.getAllRecipes = function() {
             return data.matches;
         });
 }
+
+EtsyClient.prototype.pullSingleListing = function(id) {
+    return $.getJSON(this.complete_api_url + "listings/"+id+".js?api_key=" + this.api_key + "&includes=Images&callback=?").then(function(data) {
+        return data;
+    });
+}
 YummlyClient.prototype.loadTemplate = function(name) {
     if (!this.templates) {
         this.templates = {};
