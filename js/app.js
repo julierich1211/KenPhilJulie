@@ -35,16 +35,19 @@ function YummlyClient(options) {
 
 }
 
-YummlyClient.prototype.getAllRecipes = function() {
+YummlyClient.prototype.getAllRecipes = function(data, html) {
     return $.getJSON(this.complete_api_url)
         .then(function(data) {
-            console.log(data.matches)
+            //console.log(data.matches)
             return data.matches;
         });
 }
 
-YummlyClient.prototype.getSingleRecipe = function() {
-    return $.getJSON(this.complete_api_url + "&q=imageUrlsBySize").then(function(data) {
+YummlyClient.prototype.getSingleRecipe = function(data, html) {
+    return $.getJSON(this.complete_api_url).then(function(data) {
+        console.log(data.matches);
+        console.log(data);
+        console.log(html);
         return data.matches;
     });
 }
@@ -67,8 +70,9 @@ YummlyClient.prototype.loadTemplate = function(name) {
     }
 }
 YummlyClient.prototype.showAllRecipes = function(data, html) {
-    
-    document.querySelector("#lefty").innerHTML = 
+    //console.log(data);
+    //console.log(html);
+    document.querySelector("#lefty").innerHTML =
     data.map(function(x) {
 
     return    _.template(html, x);
@@ -76,12 +80,11 @@ YummlyClient.prototype.showAllRecipes = function(data, html) {
 }
 
 YummlyClient.prototype.showSingleRecipe = function(data, html) {
-    console.log(data);
+   // var listing = data.match[0];
     document.querySelector("#righty").innerHTML = 
-    data.map(function(y){
-        return _.template(html, y);
+    data.map(function(x) {
+    return    _.template(html, x);
     }).join('');
-    
 }
 
 YummlyClient.prototype.init = function() {
@@ -89,62 +92,12 @@ YummlyClient.prototype.init = function() {
 
     $.when(
         this.getAllRecipes(),
-        //this.getSingleRecipe(),
+        //this.getSingleRecipe(this.params),
         this.loadTemplate('left'),
         this.loadTemplate('right')
     ).then(function(x, y) {
-        self.showAllRecipes(x, y);
-        self.showSingleRecipe(x, y)
+        self.showAllRecipes(x, y),
+        self.showSingleRecipe(arguments[0], arguments[2]);
     });
 
 }
-/*
-YummlyClient.prototype.drawListings = function(templateString, data) {
-    var grid = document.querySelector("#listings");
-
-    var bigHtmlString = data.results.map(function(listing) {
-        return _.template(templateString, listing);
-    }).join('');
-
-    grid.innerHTML = bigHtmlString;
-}
-
-YummlyClient.prototype.drawSingleListing = function(template, data) {
-    var listing = data.results[0];
-    var grid = document.querySelector("#listings");
-    var bigHtmlString = _.template(template, listing);
-
-    grid.innerHTML = bigHtmlString;
-}
-
-YummlyClient.prototype.setupRouting = function() {
-    var self = this;
-
-    Path.map("#/").to(function() {
-        $.when(
-            self.loadTemplate("listing"),
-            self.pullAllActiveListings()
-        ).then(function() {
-            self.drawListings(arguments[0], arguments[1]);
-
-            console.dir(self)
-        })
-    });
-
-    Path.map("#/message/:anymessage").to(function() {
-        alert(this.params.anymessage);
-    })
-
-    Path.map("#/listing/:id").to(function() {
-        $.when(
-            self.loadTemplate("single-page-listing"),
-            self.pullSingleListing(this.params.id)
-        ).then(function() {
-            self.drawSingleListing(arguments[0], arguments[1]);
-        })
-    });
-
-    // set the default hash to draw all listings
-    Path.root("#/");
-    Path.listen();
-}*/
