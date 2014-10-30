@@ -44,7 +44,7 @@ YummlyClient.prototype.getAllRecipes = function() {
 }
 
 YummlyClient.prototype.getSingleRecipe = function() {
-    return $.getJSON(this.complete_api_url).then(function(data) {
+    return $.getJSON(this.complete_api_url + "&q=imageUrlsBySize").then(function(data) {
         return data.matches;
     });
 }
@@ -67,8 +67,7 @@ YummlyClient.prototype.loadTemplate = function(name) {
     }
 }
 YummlyClient.prototype.showAllRecipes = function(data, html) {
-    console.log(data);
-    console.log(html);
+    
     document.querySelector("#lefty").innerHTML = 
     data.map(function(x) {
 
@@ -77,11 +76,12 @@ YummlyClient.prototype.showAllRecipes = function(data, html) {
 }
 
 YummlyClient.prototype.showSingleRecipe = function(data, html) {
-    var listing = data.results[0];
-    var grid = document.querySelector("#listings");
-    var bigHtmlString = _.template(template, listing);
-
-    grid.innerHTML = bigHtmlString;
+    console.log(data);
+    document.querySelector("#righty").innerHTML = 
+    data.map(function(y){
+        return _.template(html, y);
+    }).join('');
+    
 }
 
 YummlyClient.prototype.init = function() {
@@ -89,14 +89,33 @@ YummlyClient.prototype.init = function() {
 
     $.when(
         this.getAllRecipes(),
-        this.loadTemplate('left')
+        //this.getSingleRecipe(),
+        this.loadTemplate('left'),
+        this.loadTemplate('right')
     ).then(function(x, y) {
         self.showAllRecipes(x, y);
+        self.showSingleRecipe(x, y)
     });
 
 }
 /*
+YummlyClient.prototype.drawListings = function(templateString, data) {
+    var grid = document.querySelector("#listings");
 
+    var bigHtmlString = data.results.map(function(listing) {
+        return _.template(templateString, listing);
+    }).join('');
+
+    grid.innerHTML = bigHtmlString;
+}
+
+YummlyClient.prototype.drawSingleListing = function(template, data) {
+    var listing = data.results[0];
+    var grid = document.querySelector("#listings");
+    var bigHtmlString = _.template(template, listing);
+
+    grid.innerHTML = bigHtmlString;
+}
 
 YummlyClient.prototype.setupRouting = function() {
     var self = this;
@@ -128,4 +147,4 @@ YummlyClient.prototype.setupRouting = function() {
     // set the default hash to draw all listings
     Path.root("#/");
     Path.listen();
-}
+}*/
