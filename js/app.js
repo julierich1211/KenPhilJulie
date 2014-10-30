@@ -61,11 +61,12 @@ YummlyClient.prototype.loadTemplate = function(name) {
     }
 }
 YummlyClient.prototype.showAllRecipes = function(data, html) {
-    document.querySelector("#lefty").innerHTML = 
-    data.map(function(x) {
+    var grid =document.querySelector("#lefty")
+    var bigHtmlString = data.map(function(x) {
         return _.template(html, x);
 
-    });
+    }).join(' ');
+    grid.innerHTML=bigHtmlString;
 }
 
 YummlyClient.prototype.init = function() {
