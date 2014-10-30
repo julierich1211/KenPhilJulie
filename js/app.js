@@ -74,7 +74,6 @@ YummlyClient.prototype.showAllRecipes = function(data, html) {
 
     return    _.template(html, x);
     }).join('');
-
 }
 
 YummlyClient.prototype.showSingleRecipe = function(data, html) {
