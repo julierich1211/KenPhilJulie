@@ -43,9 +43,9 @@ YummlyClient.prototype.getAllRecipes = function() {
         });
 }
 
-EtsyClient.prototype.pullSingleListing = function(id) {
-    return $.getJSON(this.complete_api_url + "listings/"+id+".js?api_key=" + this.api_key + "&includes=Images&callback=?").then(function(data) {
-        return data;
+YummlyClient.prototype.getSingleRecipe = function() {
+    return $.getJSON(this.complete_api_url).then(function(data) {
+        return data.matches;
     });
 }
 YummlyClient.prototype.loadTemplate = function(name) {
@@ -87,4 +87,44 @@ YummlyClient.prototype.init = function() {
         self.showAllRecipes(x, y);
     });
 
+}
+/*
+YummlyClient.prototype.drawSingleListing = function(template, data) {
+    var listing = data.results[0];
+    var grid = document.querySelector("#listings");
+    var bigHtmlString = _.template(template, listing);
+
+    grid.innerHTML = bigHtmlString;
+}
+
+YummlyClient.prototype.setupRouting = function() {
+    var self = this;
+
+    Path.map("#/").to(function() {
+        $.when(
+            self.loadTemplate("listing"),
+            self.pullAllActiveListings()
+        ).then(function() {
+            self.drawListings(arguments[0], arguments[1]);
+
+            console.dir(self)
+        })
+    });
+
+    Path.map("#/message/:anymessage").to(function() {
+        alert(this.params.anymessage);
+    })
+
+    Path.map("#/listing/:id").to(function() {
+        $.when(
+            self.loadTemplate("single-page-listing"),
+            self.pullSingleListing(this.params.id)
+        ).then(function() {
+            self.drawSingleListing(arguments[0], arguments[1]);
+        })
+    });
+
+    // set the default hash to draw all listings
+    Path.root("#/");
+    Path.listen();
 }
