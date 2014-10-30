@@ -77,6 +77,14 @@ YummlyClient.prototype.showAllRecipes = function(data, html) {
 
 }
 
+YummlyClient.prototype.showSingleRecipe = function(data, html) {
+    var listing = data.results[0];
+    var grid = document.querySelector("#listings");
+    var bigHtmlString = _.template(template, listing);
+
+    grid.innerHTML = bigHtmlString;
+}
+
 YummlyClient.prototype.init = function() {
     var self = this;
 
@@ -89,13 +97,7 @@ YummlyClient.prototype.init = function() {
 
 }
 /*
-YummlyClient.prototype.drawSingleListing = function(template, data) {
-    var listing = data.results[0];
-    var grid = document.querySelector("#listings");
-    var bigHtmlString = _.template(template, listing);
 
-    grid.innerHTML = bigHtmlString;
-}
 
 YummlyClient.prototype.setupRouting = function() {
     var self = this;
