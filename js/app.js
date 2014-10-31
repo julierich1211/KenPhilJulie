@@ -47,7 +47,7 @@ YummlyClient.prototype.pullAllActiveListings = function() {
 
 YummlyClient.prototype.pullSingleListing = function(id) {
     return $.getJSON(
-        this.complete_api_url + this.search + this.cuisine
+        this.complete_api_url + this.search
         ).then(function(data) {
         return data.matches;
     });
@@ -104,14 +104,10 @@ YummlyClient.prototype.setupRouting = function() {
         })
     });
 
-    Path.map("#/message/:anymessage").to(function() {
-        alert(this.params.anymessage);
-    })
-
-    Path.map("#/left/:id").to(function() {
+    Path.map("#/left/:recipeName").to(function() {
         $.when(
             self.loadTemplate("right"),
-            self.pullSingleListing(this.params.id)
+            self.pullSingleListing()
         ).then(function() {
             self.drawSingleListing(arguments[0], arguments[1]);
         })
