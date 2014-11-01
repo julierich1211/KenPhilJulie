@@ -51,6 +51,10 @@ pre {
 code {
   color: #007FFF;
 }
+ul > li {
+  text-decoration: none;
+  list-style: none;
+}
 .layout {
   display: flex;
   min-height: 100vh;
