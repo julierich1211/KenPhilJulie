@@ -35,39 +35,54 @@ function YummlyClient(options) {
     this.api_key = options.app_key;
     this.api_id = ooptions.app_id;
     this.cuisine = "&allowedCuisine[]=cuisine^cuisine-";
+    this.course = "&allowedCourse[]=course^course-"
     this.pictures = "&requirePictures=true";
     this.complete_api_url = this.yummly_url + this.app_id + "&_app_key=" + this.app_key;
    
     this.setupRouting();
 }
 
-YummlyClient.prototype.pullAllActiveListings = function() {
+// from Shawn/Adam attempting to undertsand the 
+// use & creation of an input object for forms
+YummlyClient.prototype.createInputObject = function(){
+    "use strict";
+    var input = {};
+    $(':input').each(function(){
+        input[this.name] = this.value;
+    });
+    return input;
+}
+
+YummlyClient.prototype.takeRecipes = function() {
+
+    var input = this.createInputObject();
+
     return $.getJSON(
-        this.complete_api_url
+        this.complete_api_url + this.course + input.course + this.cuisine + input.cuisine
     ).then(function(data) {
             return data.matches;
         });
 }
 
-YummlyClient.prototype.pullSingleListing = function(id) {
+/*YummlyClient.prototype.takeSingleRecipe = function(id) {
     return $.getJSON(
         this.single
         ).then(function(data) {
         return data.matches;
     });
-}
+}*/
 
 YummlyClient.prototype.loadTemplate = function(name) {
     var self = this;
 
-    $.get('./templates/' + name + '.html').then(function(data) {
+    return $.get('./templates/' + name + '.html').then(function(data) {
             self.templates[name] = data; // <-- cache it for any subsequent requests to this template
             return data;
         });
     }
 }
 
-YummlyClient.prototype.drawListings = function(templateString, data) {
+YummlyClient.prototype.giveRecipes = function(templateString, data) {
     var grid = document.querySelector("#lefty");
 
     var bigHtmlString = data.matches.map(function(listing) {
@@ -77,40 +92,37 @@ YummlyClient.prototype.drawListings = function(templateString, data) {
     grid.innerHTML = bigHtmlString;
 }
 
-YummlyClient.prototype.drawSingleListing = function(template, data) {
+/*YummlyClient.prototype.giveSingleRecipe = function(template, data) {
     var listing = data[0];
     var grid = document.querySelector("#lefty");
     var bigHtmlString = _.template(template, listing);
 
     grid.innerHTML = bigHtmlString;
-}
+}*/
 
 YummlyClient.prototype.setupRouting = function() {
     var self = this;
 
     Path.map("#/").to(function() {
         $.when(
-            self.loadTemplate("left"),
-            self.pullAllActiveListings()
+            self.takeRecipes(),
+            self.loadTemplate("left")
         ).then(function() {
-            self.drawListings(arguments[0], arguments[1]);
+            self.giveRecipes(arguments[0], arguments[1]);
 
             console.dir(self)
         })
     });
 
-    Path.map("#/message/:anymessage").to(function() {
-        alert(this.params.anymessage);
-    })
 
-    Path.map("#/left/:id").to(function() {
+    /*Path.map("#/left/:id").to(function() {
         $.when(
             self.loadTemplate("right"),
-            self.pullSingleListing(this.params.id)
+            self.takeSingleRecipe(this.params.id)
         ).then(function() {
-            self.drawSingleListing(arguments[0], arguments[1]);
+            self.giveSingleRecipe(arguments[0], arguments[1]);
         })
-    });
+    });*/
 
     // set the default hash to draw all listings
     Path.root("#/");
