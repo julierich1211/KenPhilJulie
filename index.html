@@ -5,36 +5,62 @@
     <title>KPJ_Group Project</title>
     <link rel="stylesheet" type="text/css" href="./bower_components/normalize.css/normalize.css">
     <link rel="stylesheet" type="text/css" href="./bower_components/typeplate-starter-kit/css/typeplate.css">
-    <link rel="stylesheet" type="text/css" href="./dist/style.css">
-    <link rel="stylesheet" type="text/css" href="./css/flexboxgrid.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./dist/style.css">
+    <link rel="stylesheet" type="text/css" href="./dist/flexboxgrid.css"> -->
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <link rel="stylesheet" type="text/css" href="css/component.css" />
 </head>
 
-<body>
-    <div class="page">
-        <header class="hero">
-            <div class="row center-xs">
-                <h1 class="hero-headline">KPJ-Group</h1>
-            </div>
-            <div class="row center-xs"></div>
-
+<body class="nl-blurred">
+    <div class="container">
+        <header>
+            <h1>KPJ-Group</h1>
         </header>
-        <section>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="box container">
-                        <div class="row around-xs">
-                            <div class="col-xs-5">
-                                <div class="box-nested" id="lefty"></div>
-                            </div>
-                            <!--<div class="col-xs-5">
-                                <div class="box-nested" id="righty"></div>
-                            </div>-->
+        <div class="main clearfix">
+            <form id="nl-form" class="nl-form">
+                I'm looking to eat
+                <br />
+                <select name="course">
+                    <option value="Breakfast and Brunch" selected>Breakfast</option>
+                    <option value="Lunch and Snacks">Lunch</option>
+                    <option value="Main Dishes">Dinner</option>
+                    <option value="Desserts">Dessert</option>
+                </select>
+                <br />with a kind of
+                <br />
+                <select name="cuisine">
+                    <option value="American" selected>American</option>
+                    <option value="French">French</option>
+                    <option value="Japanese">Japanese</option>
+                    <option value="Italian">Italian</option>
+                </select>-ish vibe
+                <br />
+
+                <div class="nl-submit-wrap">
+                    <a href="#/results">
+                        <button class="nl-submit" id="button" type="submit">Find Recipe</button>
+                    </a>
+                </div>
+                <div class="nl-overlay"></div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box container">
+                    <div class="row around-xs">
+                        <div class="col-xs-10">
+                            <div class="box-nested" id="lefty"></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <script type="text/javascript" src="./bower_components/Loader/loader.js" id="loaderjs" data-app="./js/app.js"></script>
+        </div>
+        <script type="text/javascript" src="./bower_components/Loader/loader.js" id="loaderjs" data-app="./js/kapp.js"></script>
+        <script src="js/nlform.js"></script>
+        <script>
+        var nlform = new NLForm(document.getElementById('nl-form'));
+        </script>
 </body>
 
 </html>

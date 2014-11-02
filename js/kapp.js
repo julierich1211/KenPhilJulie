@@ -106,9 +106,9 @@ YummlyClient.prototype.setupRouting = function() {
     Path.map("#/results").to(function() {
         $.when(
             self.takeRecipes(),
-            self.loadTemplate("left")
-        ).then(function(recipeData, leftHtml) {
-            self.giveRecipes(recipeData, leftHtml);
+            self.loadTemplate("recipeResults")
+        ).then(function(recipedata, recipeResultsHtml) {
+            self.giveRecipes(recipedata, recipeResultsHtml);
 
             console.dir(self);
         });
