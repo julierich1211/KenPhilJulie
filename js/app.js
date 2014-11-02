@@ -16,10 +16,10 @@ function app() {
 
         var options = {
             app_key: "_app_id=9effb035&_app_key=a9bb7355dceffb0ebf4c559001cad27f"
-        }
+        };
         // start app?
         var client = new YummlyClient(options);
-    })
+    });
 
 }
 
@@ -43,7 +43,7 @@ YummlyClient.prototype.pullAllActiveListings = function() {
     ).then(function(data) {
             return data.matches;
         });
-}
+};
 
 YummlyClient.prototype.pullSingleListing = function(id) {
     return $.getJSON(
@@ -51,7 +51,7 @@ YummlyClient.prototype.pullSingleListing = function(id) {
         ).then(function(data) {
         return data.matches;
     });
-}
+};
 
 YummlyClient.prototype.loadTemplate = function(name) {
     if (!this.templates) {
@@ -70,7 +70,7 @@ YummlyClient.prototype.loadTemplate = function(name) {
             return data;
         });
     }
-}
+};
 
 YummlyClient.prototype.drawListings = function(templateString, data) {
     var grid = document.querySelector("#lefty");
@@ -80,7 +80,7 @@ YummlyClient.prototype.drawListings = function(templateString, data) {
     }).join('');
 
     grid.innerHTML = bigHtmlString;
-}
+};
 
 YummlyClient.prototype.drawSingleListing = function(template, data) {
     var listing = data[0];
@@ -88,7 +88,7 @@ YummlyClient.prototype.drawSingleListing = function(template, data) {
     var bigHtmlString = _.template(template, listing);
 
     grid.innerHTML = bigHtmlString;
-}
+};
 
 YummlyClient.prototype.setupRouting = function() {
     var self = this;
@@ -100,8 +100,8 @@ YummlyClient.prototype.setupRouting = function() {
         ).then(function() {
             self.drawListings(arguments[0], arguments[1]);
 
-            console.dir(self)
-        })
+            console.dir(self);
+        });
     });
 
 
@@ -111,11 +111,11 @@ YummlyClient.prototype.setupRouting = function() {
             self.pullSingleListing()
         ).then(function() {
             self.drawSingleListing(arguments[0], arguments[1]);
-        })
+        });
     });
 
     // set the default hash to draw all listings
     Path.root("#/");
     Path.listen();
 
-}
+};

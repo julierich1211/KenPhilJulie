@@ -2,6 +2,9 @@ window.onload = app;
 
 // runs when the DOM is loaded
 
+
+
+
 function app() {
 
     // load some scripts (uses promises :D)
@@ -15,12 +18,12 @@ function app() {
         _.templateSettings.interpolate = /{([\s\S]+?)}/g;
 
         var options = {
-            app_key: "a9bb7355dceffb0ebf4c559001cad27f"
-            app_id: "9effb035"
-        }
+            app_key: "b5ba65d32dc965e46b6a000b8c532a56",
+            app_id: "db9d8943"
+        };
         // start app?
         var client = new YummlyClient(options);
-    })
+    });
 
 }
 
@@ -33,25 +36,25 @@ function YummlyClient(options) {
     }
     this.yummly_url = "http://api.yummly.com/v1/api/recipes?_app_id=";
     this.api_key = options.app_key;
-    this.api_id = ooptions.app_id;
+    this.api_id = options.app_id;
     this.cuisine = "&allowedCuisine[]=cuisine^cuisine-";
-    this.course = "&allowedCourse[]=course^course-"
+    this.course = "&allowedCourse[]=course^course-";
     this.pictures = "&requirePictures=true";
     this.complete_api_url = this.yummly_url + this.app_id + "&_app_key=" + this.app_key;
-   
+
     this.setupRouting();
 }
 
 // from Shawn/Adam attempting to undertsand the 
 // use & creation of an input object for forms
-YummlyClient.prototype.createInputObject = function(){
+YummlyClient.prototype.createInputObject = function() {
     "use strict";
     var input = {};
-    $(':input').each(function(){
+    $(':input').each(function() {
         input[this.name] = this.value;
     });
     return input;
-}
+};
 
 YummlyClient.prototype.takeRecipes = function() {
 
@@ -60,9 +63,9 @@ YummlyClient.prototype.takeRecipes = function() {
     return $.getJSON(
         this.complete_api_url + this.course + input.course + this.cuisine + input.cuisine
     ).then(function(data) {
-            return data.matches;
-        });
-}
+        return data.matches;
+    });
+};
 
 /*YummlyClient.prototype.takeSingleRecipe = function(id) {
     return $.getJSON(
@@ -70,27 +73,24 @@ YummlyClient.prototype.takeRecipes = function() {
         ).then(function(data) {
         return data.matches;
     });
-}*/
+};*/
 
 YummlyClient.prototype.loadTemplate = function(name) {
-    var self = this;
-
     return $.get('./templates/' + name + '.html').then(function(data) {
-            self.templates[name] = data; // <-- cache it for any subsequent requests to this template
-            return data;
-        });
-    }
-}
+        return data;
+    });
+};
 
 YummlyClient.prototype.giveRecipes = function(templateString, data) {
     var grid = document.querySelector("#lefty");
 
-    var bigHtmlString = data.matches.map(function(listing) {
+    var bigHtmlString = data.results.map(function(listing) {
         return _.template(templateString, listing);
     }).join('');
 
     grid.innerHTML = bigHtmlString;
-}
+};
+
 
 /*YummlyClient.prototype.giveSingleRecipe = function(template, data) {
     var listing = data[0];
@@ -103,15 +103,15 @@ YummlyClient.prototype.giveRecipes = function(templateString, data) {
 YummlyClient.prototype.setupRouting = function() {
     var self = this;
 
-    Path.map("#/").to(function() {
+    Path.map("#/results").to(function() {
         $.when(
             self.takeRecipes(),
             self.loadTemplate("left")
-        ).then(function() {
-            self.giveRecipes(arguments[0], arguments[1]);
+        ).then(function(recipeData, leftHtml) {
+            self.giveRecipes(recipeData, leftHtml);
 
-            console.dir(self)
-        })
+            console.dir(self);
+        });
     });
 
 
@@ -127,4 +127,4 @@ YummlyClient.prototype.setupRouting = function() {
     // set the default hash to draw all listings
     Path.root("#/");
     Path.listen();
-}
+};
