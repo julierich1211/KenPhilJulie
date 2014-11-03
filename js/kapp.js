@@ -43,7 +43,9 @@ function YummlyClient(options) {
     this.complete_api_url = this.yummly_url + this.app_id + "&_app_key=" + this.app_key;
 
     this.setupRouting();
-    
+
+    console.log("set up routing works");
+
 }
 
 // from Shawn/Adam attempting to undertsand the 
