@@ -4,44 +4,55 @@ window.onload = app;
 
 function app() {
 
-        // load some scripts (uses promises :D)
-        loader.load({
-            url: "./bower_components/jquery/dist/jquery.min.js"
-        }, {
-            url: "./bower_components/lodash/dist/lodash.min.js"
-        }, {
-            url: "./bower_components/pathjs/path.min.js"
-        }).then(function() {
-                _.templateSettings.interpolate = /{([\s\S]+?)}/g;
+    // load some scripts (uses promises :D)
+    loader.load({
+        url: "./bower_components/jquery/dist/jquery.min.js"
+    }, {
+        url: "./bower_components/lodash/dist/lodash.min.js"
+    }, {
+        url: "./bower_components/pathjs/path.min.js"
+    }).then(function() {
+        _.templateSettings.interpolate = /{([\s\S]+?)}/g;
 
-                var options = {
-                    app_key: "_app_id=9effb035&_app_key=a9bb7355dceffb0ebf4c559001cad27f"
-                 }
-
-                var client = new YummlyClient(options);
-
-            });
-        }
-
-function YummlyClient(options) {
-    if (!options.app_key) {
-        throw new Error("Yo dawg, I heard you like APIs. Y U NO APIKEY?!?!?");
-    }
-    this.yummly_url = "http://api.yummly.com/v1/api/recipes?";
-    this.app_key = options.app_key;
-    this.complete_api_url = this.yummly_url + options.app_key + "&q=soup"; 
-    //instead of "?" we could put something so that the user types in what they are looking for i.e. soup, cake, steak, etc..
-    this.init();
+        var options = {
+            app_key: "_app_id=9effb035&_app_key=a9bb7355dceffb0ebf4c559001cad27f"
+        };
+        // start app?
+        var client = new YummlyClient(options);
+    });
 
 }
 
-YummlyClient.prototype.getAllRecipes = function() {
-    return $.getJSON(this.complete_api_url)
-    .then(function(data) {
-        console.log(data.matches)
+function YummlyClient(options) {
+    if (!options.app_key) {
+        throw new Error("Y U NO APIKEY?!?!?");
+    }
+    this.yummly_url = "http://api.yummly.com/v1/api/recipes?";
+    this.api_key = options.app_key;
+    this.search = "&q=pumpkin";
+    this.cuisine = "&allowedCuisine[]=cuisine^cuisine-southwestern";
+    this.results = "&maxResult=1&start=1";
+    this.complete_api_url = this.yummly_url + options.app_key;
+   
+    this.setupRouting();
+}
+
+YummlyClient.prototype.pullAllActiveListings = function() {
+    return $.getJSON(
+        this.complete_api_url + this.search + this.cuisine
+    ).then(function(data) {
+            return data.matches;
+        });
+};
+
+YummlyClient.prototype.pullSingleListing = function(id) {
+    return $.getJSON(
+        this.complete_api_url + this.search
+        ).then(function(data) {
         return data.matches;
     });
-    }
+};
+
 YummlyClient.prototype.loadTemplate = function(name) {
     if (!this.templates) {
         this.templates = {};
@@ -59,21 +70,52 @@ YummlyClient.prototype.loadTemplate = function(name) {
             return data;
         });
     }
-}
-YummlyClient.prototype.showAllRecipes = function(leftHtml, left) {
-    var grid = document.querySelector("#lefty").innerHTML = _.template(leftHtml, left);;
-
-    // body...
 };
 
-YummlyClient.prototype.init = function() {
+YummlyClient.prototype.drawListings = function(templateString, data) {
+    var grid = document.querySelector("#lefty");
+
+    var bigHtmlString = data.map(function(listing) {
+        return _.template(templateString, listing);
+    }).join('');
+
+    grid.innerHTML = bigHtmlString;
+};
+
+YummlyClient.prototype.drawSingleListing = function(template, data) {
+    var listing = data[0];
+    var grid = document.querySelector("#lefty");
+    var bigHtmlString = _.template(template, listing);
+
+    grid.innerHTML = bigHtmlString;
+};
+
+YummlyClient.prototype.setupRouting = function() {
     var self = this;
 
-    $.when(
-        this.getAllRecipes(),
-        this.loadTemplate('left')
-        ).then(function(){
-        self.showAllRecipes(arguments[0], arguments[1])
-        })
-    
-}
+    Path.map("#/").to(function() {
+        $.when(
+            self.loadTemplate("left"),
+            self.pullAllActiveListings()
+        ).then(function() {
+            self.drawListings(arguments[0], arguments[1]);
+
+            console.dir(self);
+        });
+    });
+
+
+    Path.map("#/left/:recipeName").to(function() {
+        $.when(
+            self.loadTemplate("right"),
+            self.pullSingleListing()
+        ).then(function() {
+            self.drawSingleListing(arguments[0], arguments[1]);
+        });
+    });
+
+    // set the default hash to draw all listings
+    Path.root("#/");
+    Path.listen();
+
+};
