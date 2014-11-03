@@ -68,7 +68,7 @@ YummlyClient.prototype.takeRecipes = function() {
         this.complete_api_url + this.course + input.course + this.cuisine + input.cuisine
     ).then(function(data) {
 console.log("hello");
-        return data.matches;
+        return data;
     });
 };
 
@@ -89,7 +89,7 @@ YummlyClient.prototype.loadTemplate = function(name) {
 YummlyClient.prototype.giveRecipes = function(data, html) {
     var grid = document.querySelector("#lefty");
 
-    var bigHtmlString = data.map(function(html) {
+    var bigHtmlString = data.matches.map(function(html) {
         return _.template(data, html);
     }).join('');
 
