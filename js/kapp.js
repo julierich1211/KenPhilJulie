@@ -43,7 +43,7 @@ function YummlyClient(options) {
     this.complete_api_url = this.yummly_url + this.app_id + "&_app_key=" + this.app_key;
 
     this.setupRouting();
-    console.log("hello");
+    
 }
 
 // from Shawn/Adam attempting to undertsand the 
@@ -65,7 +65,7 @@ YummlyClient.prototype.takeRecipes = function() {
     return $.getJSON(
         this.complete_api_url + this.course + input.course + this.cuisine + input.cuisine
     ).then(function(data) {
-
+console.log("hello");
         return data.matches;
     });
 };
@@ -84,11 +84,11 @@ YummlyClient.prototype.loadTemplate = function(name) {
     });
 };
 
-YummlyClient.prototype.giveRecipes = function(templateString, data) {
+YummlyClient.prototype.giveRecipes = function(data, html) {
     var grid = document.querySelector("#lefty");
 
-    var bigHtmlString = data.results.map(function(listing) {
-        return _.template(templateString, listing);
+    var bigHtmlString = data.results.map(function(html) {
+        return _.template(data, html);
     }).join('');
 
     grid.innerHTML = bigHtmlString;
@@ -105,15 +105,14 @@ YummlyClient.prototype.giveRecipes = function(templateString, data) {
 
 YummlyClient.prototype.setupRouting = function() {
     var self = this;
-
     Path.map("#/results").to(function() {
         $.when(
             self.takeRecipes(),
             self.loadTemplate("recipeResults")
-        ).then(function(recipedata, recipeResultsHtml) {
-            self.giveRecipes(recipedata, recipeResultsHtml);
+        ).then(function(data, recipeResultsHtml) {
+            self.giveRecipes(data, recipeResultsHtml);
 
-            console.dir(self);
+            console.log(self);
         });
     });
 
