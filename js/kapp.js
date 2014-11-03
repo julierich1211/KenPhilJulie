@@ -35,8 +35,8 @@ function YummlyClient(options) {
         throw new Error("Y U NO ID?!?!?");
     }
     this.yummly_url = "http://api.yummly.com/v1/api/recipes?_app_id=";
-    this.api_key = options.app_key;
-    this.api_id = options.app_id;
+    this.app_key = options.app_key;
+    this.app_id = options.app_id;
     this.cuisine = "&allowedCuisine[]=cuisine^cuisine-";
     this.course = "&allowedCourse[]=course^course-";
     this.pictures = "&requirePictures=true";
@@ -53,7 +53,7 @@ function YummlyClient(options) {
 YummlyClient.prototype.createInputObject = function() {
     "use strict";
     var input = {};
-    $(':input').each(function() {
+    $('input').each(function() {
         input[this.name] = this.value;
     });
 
@@ -89,7 +89,7 @@ YummlyClient.prototype.loadTemplate = function(name) {
 YummlyClient.prototype.giveRecipes = function(data, html) {
     var grid = document.querySelector("#lefty");
 
-    var bigHtmlString = data.results.map(function(html) {
+    var bigHtmlString = data.map(function(html) {
         return _.template(data, html);
     }).join('');
 
