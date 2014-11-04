@@ -1,3 +1,4 @@
+
  window.onload = app;
 
  // runs when the DOM is loaded
@@ -120,24 +121,7 @@
         }).join("");
  };
 
- //YummlyClient.prototype.giveRecipes = function(data, html) {
- //  var grid = document.querySelector('#lefty');
 
- //var bigHtmlString = data.matches.map(function(html) {
- //  return _.template(data, html);
- //}).join('');
-
- //grid.innerHTML = bigHtmlString;
- //};
-
-
- /*YummlyClient.prototype.giveSingleRecipe = function(template, data) {
-     var listing = data[0];
-     var grid = document.querySelector("#lefty");
-     var bigHtmlString = _.template(template, listing);
-
-     grid.innerHTML = bigHtmlString;
- }*/
 
  YummlyClient.prototype.setupRouting = function() {
      "use strict";
