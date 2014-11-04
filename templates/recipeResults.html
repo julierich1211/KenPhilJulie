@@ -4,10 +4,18 @@
             <div class="row around-xs">
                 <div class="col-xs-10">
                     <div id="recipeResults" class="box-nested">
-                        <h6>{recipeName}</h6>
-                        <a href="http://www.yummly.com/recipe/{id}">
+                        <a href="http://www.yummly.com/recipes/{}">
                             <img src="{imageUrlsBySize[90]}">
+                            <ul>{recipeName}
+                                
+                                <li>{this.course}</li>
+                                <li>{this.cuisine}</li>
+                                <li>Ingredients:{ingredients}</li>
+                                <li>Time In Seconds:{totalTimeInSeconds}</li>
+                                <li>Rating:{rating} </li>
+                            </ul>
                         </a>
+
                     </div>
                 </div>
             </div>

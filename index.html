@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Whats for Dinner?</title>
+    <title>Suit My Mood</title>
     <link rel="stylesheet" type="text/css" href="./bower_components/normalize.css/normalize.css">
     <link rel="stylesheet" type="text/css" href="./bower_components/typeplate-starter-kit/css/typeplate.css">
     <link rel="stylesheet" type="text/css" href="./dist/style.css">
@@ -23,31 +23,33 @@
             <div class="main clearfix">
 
                 <form id="nl-form" class="nl-form" action="#/results">
-                    I'm looking for a "___" meal.
+                    I'm in the mood for...
                     <br />
-                    <select name= "course">
+                    <select name="cuisine">
+                        <option value="American">American</option>
+                        <option value="French">French</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Italian">Italian</option>
+                    </select>
+                    <br />For A...
+                    <br />
+                    <select name="course">
                         <option value="Breakfast and Brunch">Breakfast and Brunch</option>
                         <option value="Lunch and Snacks">Lunch and Snacks</option>
                         <option value="Main Dishes">Main Dishes</option>
                         <option value="Side Dishes">Side Dishes</option>
                     </select>
-                    <br />with a kind of
-                    <br />
-                    <select name= "cuisine">
-                        <option value="American">American</option>
-                        <option value="French">French</option>
-                        <option value="Japanese">Japanese</option>
-                        <option value="Italian">Italian</option>
-                    </select>-ish vibe
+
+
                     <br />
 
-                    <div class="nl-submit-wrap" id="button">
-                        <a href="#/results" class="action-button shadow animate green"> Find My Meal...</a>
+                    <div id="button" class="nl-submit-wrap">
+                        <a href="#/results" class="action-button shadow animate green"> Suit My Mood...</a>
 
                     </div>
                     <div id="refresh" class="nl-submit-wrap">
                         <a href="#/refresh" class="action-button shadow animate blue">
-                    Refresh
+                    Again please...
                 </a>
                     </div>
                     <div class="nl-overlay"></div>
@@ -70,20 +72,21 @@
                 </div>
             </div>
         </div>
-        <footer>
-            <div>
-                <div class="count">
-                    You've visited
-                    <span id="visited"></span>times!
-                </div>
-                <hr/>
+    </div>
+    <footer>
+        <div>
+            <div class="count">
+                We Have Dined Together
+                <span id="visited"></span>Times! Priceless Memories!
             </div>
-        </footer>
-        <script src="js/nlform.js"></script>
-        <script>
-        var nlform = new NLForm(document.getElementById('nl-form'));
-        </script>
-        <script type="text/javascript" src="./bower_components/Loader/loader.js" id="loaderjs" data-app="./js/kapp.js"></script>
+            <hr/>
+        </div>
+    </footer>
+    <script src="js/nlform.js"></script>
+    <script>
+    var nlform = new NLForm(document.getElementById('nl-form'));
+    </script>
+    <script type="text/javascript" src="./bower_components/Loader/loader.js" id="loaderjs" data-app="./js/kapp.js"></script>
 
 </body>
 
