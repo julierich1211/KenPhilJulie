@@ -3,8 +3,8 @@ body {
   padding: 0;
   margin: 0;
   font-size: 18px;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: normal;
+  font-family: 'Pacifico'
+  font-weight: bold;
   background: #EEE;
   line-height: 1.4rem;
 }
@@ -14,9 +14,16 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "bree", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  color: #001A33;
+  font-family: 'Pacifico';
+  color: #93007C;
 }
+
+.count {
+  font-family: 'Pacifico', cursive;
+font-size: 8px;
+  color: #93007C;
+}
+
 h2 {
   font-size: 2rem;
   margin: 1rem 0;

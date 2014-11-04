@@ -1,11 +1,16 @@
-<!-- <a href="#/Recipes/{id}">
-<p>{recipeName}</p>
-</a> -->
-
-<h5>{recipeName}</h5>
-<a href="http://www.yummly.com/recipe/{id}">
-<img src="{imgUrlBySize[90]}">
-</a>
-<p>Rating: {rating} Stars</p>
-
-<p>{sourceDisplayName}</p>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box container">
+            <div class="row around-xs">
+                <div class="col-xs-10">
+                    <div id="recipeResults" class="box-nested">
+                        <h6>{recipeName}</h6>
+                        <a href="http://www.yummly.com/recipe/{id}">
+                            <img src="{imageUrlsBySize[90]}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
